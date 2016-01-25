@@ -1,0 +1,33 @@
+{
+  "name": "seed-help-desk",
+  "version": "1.0.0",
+  "description": "Seed Help Desk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/praekelt/seed-help-desk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/praekelt/seed-help-desk/issues"
+  },
+  "homepage": "https://github.com/praekelt/seed-help-desk#readme",
+  "dependencies": {
+    "react": "^0.14.6",
+    "react-bootstrap": "^0.28.2",
+    "react-dom": "^0.14.6",
+    "react-styleguide-generator": "^1.2.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-bower": "0.0.11",
+    "gulp-notify": "^2.2.0",
+    "gulp-ruby-sass": "^2.0.6",
+    "gulp-serve": "^1.2.0"
+  }
+}
