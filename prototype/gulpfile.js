@@ -54,19 +54,18 @@ gulp.task('serve', function() {
 });
 
 gulp.task('build-server', () => {
-    return gulp.src("server.js")
+    return gulp.src(app + 'scripts/server.js')
         .pipe($.babel({
 			presets: ['es2015']
 		}))
         .pipe(gulp.dest("dist"));
 });
 
-
-gulp.task('server', function () {
-    // Start the server at the beginning of the task
-    // $.express.run(['dist/server.js']);
-    gulp.watch(['dist/server.js'], [$.express.run]);
-});
+// gulp.task('server', function () {
+//     // Start the server at the beginning of the task
+//     // $.express.run(['dist/server.js']);
+//     gulp.watch(['dist/server.js'], [$.express.run]);
+// });
 
 // copy images
 gulp.task('images', function(cb) {
@@ -101,4 +100,4 @@ gulp.task('clean', function(cb) {
 
 
 // by default build project and then watch files in order to trigger livereload
-gulp.task('default', ['images', 'html', 'scripts', 'build-server', 'styles', 'watch']);
+gulp.task('default', ['images', 'html', 'scripts', 'styles', 'watch', 'build-server']);
