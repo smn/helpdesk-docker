@@ -33,6 +33,14 @@ gulp.task('scripts', function() {
     // .pipe($.express.notify());
 });
 
+// copy 3rd party js
+gulp.task('js', function(cb) {
+  return gulp.src(app + 'js/*.{js}')
+    .pipe($.size({ title : 'js' }))
+    .pipe(gulp.dest(dist + 'js/'));
+});
+
+
 // copy html from app to dist
 gulp.task('html', function() {
   return gulp.src(app + 'index.html')
@@ -100,4 +108,4 @@ gulp.task('clean', function(cb) {
 
 
 // by default build project and then watch files in order to trigger livereload
-gulp.task('default', ['images', 'html', 'scripts', 'styles', 'watch', 'build-server']);
+gulp.task('default', ['images', 'html', 'scripts', 'js', 'styles', 'watch', 'build-server']);

@@ -5,6 +5,7 @@ import LoginFail from './pages/loginFail.jsx';
 import LoginForgotten from './pages/loginForgotten.jsx';
 import LoginForgottenCode from './pages/loginForgottenCode.jsx';
 import LoginForgottenNew from './pages/loginForgottenNew.jsx';
+import Inbox from './pages/inbox.jsx';
 
 
 const routes = {
@@ -38,6 +39,10 @@ const routes = {
     {
       path: '/loginforgottennew',
       component: LoginForgottenNew
+    },
+    {
+      path: '/inbox',
+      component: Inbox
     }
   ]
 }

@@ -4,7 +4,8 @@
   "description": "Seed Help Desk",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/babel-node ./prototype/server.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,10 @@
   "bugs": {
     "url": "https://github.com/praekelt/seed-help-desk/issues"
   },
+  "engines": {
+    "node": "4.1.2",
+    "npm": "2.14.6"
+  },
   "homepage": "https://github.com/praekelt/seed-help-desk#readme",
   "dependencies": {
     "react": "^0.14.6",
@@ -25,7 +30,8 @@
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "history": "^1.17.0",
-    "react-router": "^1.0.3"
+    "react-router": "^1.0.3",
+    "babel-cli": "^6.4.0"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
