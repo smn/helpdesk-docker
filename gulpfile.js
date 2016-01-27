@@ -8,7 +8,8 @@ var gulp = require('gulp'), 
 var config = {
      sassPath: './src/sass',
      bowerDir: './bower_components' ,
-    styleguideDir: './styleguide'
+    styleguideDir: './styleguide',
+    prototypeDir: './prototype'
 }
 
 gulp.task('bower', function() { 
@@ -33,7 +34,8 @@ gulp.task('css', function() { 
                  return "Error: " + error.message;
              })) 
          .pipe(gulp.dest('./dist/css'))
-        .pipe(gulp.dest(config.styleguideDir));
+        .pipe(gulp.dest(config.styleguideDir))
+        .pipe(gulp.dest(config.prototypeDir + '/app/css'));
 });
 
 // Rerun the task when a file changes
@@ -57,6 +59,8 @@ gulp.task('styleguide', function (done) {
 });
 
 gulp.task('styleguide-serve', serve(['styleguide/styleguide']));
+
+gulp.task('prototype-serve', serve([config.prototypeDir]));
 
 
   gulp.task('default', ['bower', 'icons', 'css']);
