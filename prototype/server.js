@@ -33,8 +33,8 @@ app.get('*', (req, res) => {
 });
 
 const server = http.createServer(app);
-
-server.listen(3003);
+const PORT = process.env.PORT || 8080;
+server.listen(PORT);
 server.on('listening', () => {
-  console.log('Listening on 3003');
+  console.log('Listening on ' + PORT);
 });
