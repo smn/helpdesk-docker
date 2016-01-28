@@ -18,8 +18,9 @@ gulp.task('bower', function() { 
 });
 
 gulp.task('icons', function() { 
-    return gulp.src(config.bowerDir + '/font-awesome/fonts/**.*') 
-        .pipe(gulp.dest('./dist/fonts')); 
+    return gulp.src(config.bowerDir + '/bootstrap-sass/assets/fonts/bootstrap/**.*') 
+        .pipe(gulp.dest('./dist/fonts'))
+        .pipe(gulp.dest(config.prototypeDir + '/app/fonts/bootstrap'));
 });
 
 gulp.task('css', function() { 

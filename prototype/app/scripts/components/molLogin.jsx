@@ -13,7 +13,7 @@ const LoginForm = (props) => {
         <form>
             <Input type="text" label="Username" placeholder="Enter cellphone" />
             <Input type="password" label="Password / PIN" />
-            <Link to='/inbox'><Button>Login</Button></Link> 
+            <Link to='/inbox'><Button>Login</Button></Link>
             <Link to='/loginfail'><Button>Login (Fail)</Button></Link>
             <Link to='/loginforgotten'><Button>Forgotton Password</Button></Link>
         </form>

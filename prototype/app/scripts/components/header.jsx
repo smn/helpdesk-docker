@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, Label } from 'react-bootstrap';
 
 class Header extends React.Component {
 
@@ -29,7 +29,7 @@ class Header extends React.Component {
       <Navbar inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="/">Helpdesk</a>
+            <a href="/">Helpdesk</a> <Label>v0.1.0</Label>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -37,7 +37,7 @@ class Header extends React.Component {
           <Nav pullRight>
             <NavItem eventKey={3} href="/faq">FAQ</NavItem>
             <NavItem eventKey={1} href="/inbox">Inbox</NavItem>
-
+            <NavItem eventKey={2} href="/login">Login</NavItem>
           </Nav>
         </Navbar.Collapse>
         </Navbar>

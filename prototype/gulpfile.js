@@ -29,8 +29,8 @@ gulp.task('scripts', function() {
   return gulp.src(webpackConfig.entry)
     .pipe($.webpack(webpackConfig))
     .pipe(gulp.dest(dist + 'js/'))
-    .pipe($.size({ title : 'js' }));
-    // .pipe($.express.notify());
+    .pipe($.size({ title : 'js' }))
+    .pipe($.livereload());;
 });
 
 // copy 3rd party js
@@ -40,40 +40,29 @@ gulp.task('js', function(cb) {
     .pipe(gulp.dest(dist + 'js/'));
 });
 
+// copy 3rd party icons
+gulp.task('icons', function(cb) {
+  return gulp.src(app + 'fonts/**/**.*')
+    .pipe($.size({ title : 'fonts' }))
+    .pipe(gulp.dest(dist + 'fonts/'));
+});
+
 
 // copy html from app to dist
 gulp.task('html', function() {
   return gulp.src(app + 'index.html')
     .pipe(gulp.dest(dist))
     .pipe($.size({ title : 'html' }));
-    // .pipe($.express.notify());
 });
 
 
-// add livereload on the given port
-gulp.task('serve', function() {
-  $.connect.server({
-    root: dist,
-    port: port,
-    livereload: {
-      port: 35729
-    }
-  });
-});
+gulp.task('server', function () {
+    // Start the server at the beginning of the task
+    $.express.run(['server.js']);
 
-gulp.task('build-server', () => {
-    return gulp.src(app + 'scripts/server.js')
-        .pipe($.babel({
-			presets: ['es2015']
-		}))
-        .pipe(gulp.dest("dist"));
+    // Restart the server when file changes
+    gulp.watch(['dist/js/main.js'], $.express.notify);
 });
-
-// gulp.task('server', function () {
-//     // Start the server at the beginning of the task
-//     // $.express.run(['dist/server.js']);
-//     gulp.watch(['dist/server.js'], [$.express.run]);
-// });
 
 // copy images
 gulp.task('images', function(cb) {
@@ -89,12 +78,12 @@ gulp.task('styles',function(cb) {
   return gulp.src(app + 'css/style.css')
     .pipe(gulp.dest(dist + 'css/'))
     .pipe($.size({ title : 'css' }));
-    // .pipe($.express.notify());
 
 });
 
 // watch css, html and js file changes
 gulp.task('watch', function() {
+  $.livereload.listen();
   gulp.watch(app + 'css/*.css', ['styles']);
   gulp.watch(app + 'index.html', ['html']);
   gulp.watch(app + 'scripts/**/*.js', ['scripts']);
@@ -108,4 +97,4 @@ gulp.task('clean', function(cb) {
 
 
 // by default build project and then watch files in order to trigger livereload
-gulp.task('default', ['images', 'html', 'scripts', 'js', 'styles', 'watch', 'build-server']);
+gulp.task('default', ['images', 'html', 'scripts', 'js', 'icons', 'styles', 'watch', 'server']);
