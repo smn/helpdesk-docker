@@ -53,11 +53,11 @@ export const actions = {
 export default handleActions({
   DELETECASE: (state, { payload }) => (Object.assign({}, state, {
     cases: state.cases.filter(x => x.id !== payload),
-    cases_deleted: Object.assign([], state.cases_deleted, state.cases_deleted.push(state.cases.filter(x => x.id == payload)[0]))
+    cases_deleted: Object.assign([], state.cases_deleted, state.cases_deleted.push(state.cases.filter(x => x.id === parseInt(payload, 10))[0]))
   })),
   ARCHIVECASE: (state, { payload }) => (Object.assign({}, state, {
     cases: state.cases.filter(x => x.id !== payload),
-    cases_archived: Object.assign([], state.cases_archived, state.cases_archived.push(state.cases.filter(x => x.id == payload)[0]))
+    cases_archived: Object.assign([], state.cases_archived, state.cases_archived.push(state.cases.filter(x => x.id === parseInt(payload, 10))[0]))
   })),
   LOADCASES: (state, { payload }) => (Object.assign({}, state, {
     received_at: Date.now()

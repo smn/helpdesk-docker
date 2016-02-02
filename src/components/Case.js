@@ -15,7 +15,7 @@ export default class Case extends Component {
     cases: PropTypes.array.isRequired
   };
 
-  componentDidMount() {
+  componentDidMount () {
     // from the path `/inbox/cases/:id`
     const id = this.props.params.id
     console.log('CASE MOUNTED:')
@@ -23,7 +23,7 @@ export default class Case extends Component {
   }
 
   render () {
-    const cases = this.props.cases.filter(x => x.id == this.props.params.id)
+    const cases = this.props.cases.filter(x => x.id === parseInt(this.props.params.id, 10))
     const hasCases = cases.length > 0
     const nodes = !hasCases
       ? <tr><td>Case not found.</td></tr>

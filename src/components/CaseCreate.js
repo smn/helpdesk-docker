@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as caseActions } from '../redux/modules/cases'
-import { Table, Input, ButtonInput } from 'react-bootstrap'
+import { Input, ButtonInput } from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
   messages: state.messages.messages,
@@ -17,9 +17,8 @@ export default class CaseCreate extends Component {
     messages: PropTypes.array.isRequired
   };
 
-
   render () {
-    const messages = this.props.messages.filter(x => x.id == this.props.params.messageId)
+    const messages = this.props.messages.filter(x => x.id === parseInt(this.props.params.messageId, 10))
     const hasMessages = messages.length > 0
     if (!hasMessages) {
       return (
@@ -32,8 +31,8 @@ export default class CaseCreate extends Component {
           <h1>Create case</h1>
           { message.message } <hr />
           <form>
-            <Input type="text" label="Case subject" placeholder="Enter short summary text" />
-            <ButtonInput bsStyle="primary" type="submit" value="Open" />
+            <Input type='text' label='Case subject' placeholder='Enter short summary text' />
+            <ButtonInput bsStyle='primary' type='submit' value='Open' />
           </form>
         </div>
       )

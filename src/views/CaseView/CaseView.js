@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as caseActions } from '../../redux/modules/cases'
-import { CaseList, Header } from '../../components'
-import { Grid, Row, Col, Nav, NavItem, Badge } from 'react-bootstrap'
+import { Header } from '../../components'
+import { Grid, Row, Col } from 'react-bootstrap'
 
 // We define mapStateToProps where we'd normally use
 // the @connect decorator so the data requirements are clear upfront, but then
@@ -15,7 +15,8 @@ const mapStateToProps = (state) => ({
 })
 export class CaseView extends Component {
     static propTypes = {
-      cases: PropTypes.array.isRequired
+      cases: PropTypes.array.isRequired,
+      children: PropTypes.object.isRequired
     };
   render () {
     return (

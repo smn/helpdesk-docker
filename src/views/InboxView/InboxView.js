@@ -17,14 +17,15 @@ const mapStateToProps = (state) => ({
 export class InboxView extends Component {
     static propTypes = {
       messages: PropTypes.array.isRequired,
-      inboxstage: PropTypes.number.isRequired
+      inboxstage: PropTypes.number.isRequired,
+      children: PropTypes.object.isRequired
     };
   render () {
     switch (this.props.inboxstage) {
       case 1:
         return (
           <div className='container text-center'>
-            <MessageList />
+            // <MessageList />
           </div>)
       default:
         return (
@@ -47,6 +48,3 @@ export class InboxView extends Component {
 }
 
 export default connect(mapStateToProps, messageActions)(InboxView)
-//<MessageList messages={this.props.messages} />
-
-// { this.props.children }
