@@ -1,22 +1,27 @@
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 import { Glyphicon, Button } from 'react-bootstrap'
 
 export default class MessageListItem extends Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
-    received_at: PropTypes.string.isRequired,
+    received_at_nice: PropTypes.string.isRequired,
     from: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
-    onMessageDeleteClicked: PropTypes.func.isRequired
+    onMessageDeleteClicked: PropTypes.func.isRequired,
+    onMessageArchiveClicked: PropTypes.func.isRequired
   };
   render () {
-    const { id, received_at, from, message, onMessageDeleteClicked } = this.props
+    const { id, received_at_nice, from, message, onMessageDeleteClicked, onMessageArchiveClicked } = this.props
     return (
       <tr>
-        <td>{ received_at }</td>
+        <td>{ received_at_nice }</td>
         <td>{ from }</td>
-        <td>{ message }</td>
-        <td>Actions:
+        <td><Link to={`/inbox/message/${id}`}>{ message }</Link></td>
+        <td width="200px">
+          <Link to={`/inbox/message/${id}`}><Button><Glyphicon glyph='envelope' /></Button></Link>
+          <Link to={`/cases/create/${id}`}><Button><Glyphicon glyph='folder-open' /></Button></Link>
+          <Button onClick={() => onMessageArchiveClicked(id)}><Glyphicon glyph='download-alt' /></Button>
           <Button onClick={() => onMessageDeleteClicked(id)}><Glyphicon glyph='trash' /></Button>
         </td>
       </tr>

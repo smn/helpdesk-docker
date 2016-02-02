@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as messageActions } from '../../redux/modules/messages'
 import { MessageList, Header } from '../../components'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Grid, Row, Col, Nav, NavItem, Badge } from 'react-bootstrap'
 
 // We define mapStateToProps where we'd normally use
 // the @connect decorator so the data requirements are clear upfront, but then
@@ -11,10 +11,9 @@ import { Grid, Row, Col } from 'react-bootstrap'
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 
 const mapStateToProps = (state) => ({
-  messages: state.messages.messages,
-  inboxstage: state.messages.inboxstage
+  messages: state.messages.messages
 })
-export class InboxView extends Component {
+export class MessageView extends Component {
     static propTypes = {
       messages: PropTypes.array.isRequired,
       inboxstage: PropTypes.number.isRequired
@@ -29,13 +28,12 @@ export class InboxView extends Component {
       default:
         return (
           <div>
-            <Header />
+            <Header messages={this.props.messages} />
             <Grid>
               <Row>
                 <Col sm={12} md={12}>
                   <div>
-                      {/* Render the child route component */}
-                      {this.props.children}
+                      <MessageList messages={this.props.messages} />
                   </div>
                 </Col>
               </Row>
@@ -47,6 +45,5 @@ export class InboxView extends Component {
 }
 
 export default connect(mapStateToProps, messageActions)(InboxView)
-//<MessageList messages={this.props.messages} />
 
 // { this.props.children }

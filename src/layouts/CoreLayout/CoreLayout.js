@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import { Navbar, Nav, NavItem, Label } from 'react-bootstrap'
 
 // Note: Stateless/function components *will not* hot reload!
 // react-transform *only* works on component classes.
@@ -13,21 +12,6 @@ import { Navbar, Nav, NavItem, Label } from 'react-bootstrap'
 function CoreLayout ({ children }) {
   return (
     <div>
-      <Navbar inverse>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href='/'>Helpdesk</a> <Label>v0.1.1</Label>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            <NavItem eventKey={3} href='/faq'>FAQ</NavItem>
-            <NavItem eventKey={1} href='/inbox'>Inbox</NavItem>
-            <NavItem eventKey={2} href='/login'>Login</NavItem>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
         {children}
     </div>
   )
