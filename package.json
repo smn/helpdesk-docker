@@ -18,7 +18,8 @@
     "dev:no-debug": "npm run dev -- --no_debug",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
-    "deploy": "better-npm-run deploy"
+    "deploy": "better-npm-run deploy",
+    "serve": "node proto.js"
   },
   "betterScripts": {
     "dev": {
