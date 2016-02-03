@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { Navigation } from 'react-router'
 import { connect } from 'react-redux'
 import { actions as caseActions } from '../redux/modules/cases'
 import { actions as messageActions } from '../redux/modules/messages'
-import { routeActions } from 'react-router-redux'
-import { Input, Button } from 'react-bootstrap'
+import { Input } from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
   messages: state.messages.messages,
@@ -16,6 +14,7 @@ const mapStateToProps = (state) => ({
 export default class CaseCreate extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     cases: PropTypes.array.isRequired,
     messages: PropTypes.array.isRequired,
     addCase: PropTypes.func.isRequired,
@@ -42,7 +41,6 @@ export default class CaseCreate extends Component {
 
   handleSave (text) {
     if (text.length !== 0) {
-
       this.props.addCase({subject: text, from: 'You', messages: [this.messageId()]})
       this.props.markAsCase(this.messageId())
       this.props.history.push('/cases')

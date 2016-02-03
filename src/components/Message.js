@@ -18,6 +18,7 @@ const mapStateToProps = (state) => ({
 export default class Message extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     messages: PropTypes.array.isRequired,
     addReply: PropTypes.func.isRequired,
     closeSuccess: PropTypes.func.isRequired,
@@ -65,8 +66,6 @@ export default class Message extends Component {
     this.props.deleteMessage(this.messageId())
     this.props.history.push('/inbox')
   }
-
-
 
   render () {
     const messages = this.props.messages.filter(x => x.id === this.messageId())
