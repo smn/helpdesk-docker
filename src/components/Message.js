@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import { actions as messageActions } from '../redux/modules/messages'
 // import MessageReply from './'
-import { Table, Input, Button, Alert, Grid, Row, Col } from 'react-bootstrap'
+import { Table, Input, Button, Alert, Grid, Row, Col, Glyphicon } from 'react-bootstrap'
 import moment from 'moment'
 
 const mapStateToProps = (state) => ({
@@ -21,8 +22,14 @@ export default class Message extends Component {
     addReply: PropTypes.func.isRequired,
     closeSuccess: PropTypes.func.isRequired,
     alert: PropTypes.bool.isRequired,
-    messageOpen: PropTypes.func.isRequired
+    messageOpen: PropTypes.func.isRequired,
+    deleteMessage: PropTypes.func.isRequired,
+    archiveMessage: PropTypes.func.isRequired
   };
+
+  messageId () {
+    return parseInt(this.props.params.id, 10)
+  }
 
   componentDidMount () {
 
@@ -44,13 +51,25 @@ export default class Message extends Component {
 
   handleSave (text) {
     if (text.length !== 0) {
-      this.props.addReply({id: parseInt(this.props.params.id, 10), text: text})
+      this.props.addReply({id: this.messageId(), text: text})
       setTimeout(() => this.props.closeSuccess(), 5000)
     }
   }
 
+  handleArchive () {
+    this.props.archiveMessage(this.messageId())
+    this.props.history.push('/inbox')
+  }
+
+  handleDelete () {
+    this.props.deleteMessage(this.messageId())
+    this.props.history.push('/inbox')
+  }
+
+
+
   render () {
-    const messages = this.props.messages.filter(x => x.id === parseInt(this.props.params.id, 10))
+    const messages = this.props.messages.filter(x => x.id === this.messageId())
     const hasMessages = messages.length > 0
     const searchFaqButton = <Button>Search approved answers</Button>
     const replyBox = (
@@ -94,15 +113,20 @@ export default class Message extends Component {
         : ''
       return (
         <div>
-          <h1>Message from { message.from }</h1>
-          { alertbox }
+
           <Grid>
             <Row>
               <Col sm={12} md={12}>
+                <h1>Message from { message.from }</h1>
+                { alertbox }
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={8} md={8}>
                 <Table responsive striped >
                   <thead>
                     <tr>
-                      <th>Message</th><th width='300px'>Message Details</th>
+                      <th>Message</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -110,14 +134,23 @@ export default class Message extends Component {
                       <td>
                         { message.message }
                       </td>
-                      <td>
-                        <strong>Recieved: </strong>{ moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
-                      </td>
                     </tr>
                     { replies }
+                    <tr>
+                      <td>
+                        { replyForm }
+                      </td>
+                    </tr>
                   </tbody>
                 </Table>
-                { replyForm }
+
+              </Col>
+              <Col sm={4} md={4}>
+                <Link to={`/cases/create/${this.messageId()}`}><Button><Glyphicon glyph='folder-open' /> &nbsp;Open Case</Button></Link>{ ' ' }
+                <Button onClick={() => this.handleArchive() }><Glyphicon glyph='download-alt' /> &nbsp;Archive</Button>{ ' ' }
+                <Button onClick={() => this.handleDelete() }><Glyphicon glyph='trash' /> &nbsp;Delete</Button>
+                <hr />
+                <strong>Recieved: </strong>{ moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
               </Col>
             </Row>
           </Grid>

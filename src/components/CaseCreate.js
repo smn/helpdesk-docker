@@ -26,7 +26,6 @@ export default class CaseCreate extends Component {
     return parseInt(this.props.params.messageId, 10)
   }
 
-
   handleSubmit (e) {
     const text = e.target.value.trim()
     if (e.which === 13) {
@@ -62,7 +61,7 @@ export default class CaseCreate extends Component {
       return (
         <div>
           <h1>Create case</h1>
-          { message.message } <hr />
+          <strong>Initial message:</strong> { message.message } <hr />
           <form>
             <Input type='text' label='Case subject' placeholder='Enter short summary text, then hit return'
               onChange={this.handleChange.bind(this)}
