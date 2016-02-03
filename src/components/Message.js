@@ -7,6 +7,7 @@ import moment from 'moment'
 
 const mapStateToProps = (state) => ({
   messages: state.messages.messages,
+  message_open: state.messages.message_open,
   messages_archived: state.messages.messages_archived,
   messages_deleted: state.messages.messages_deleted,
   inboxstage: state.messages.inboxstage,
@@ -19,10 +20,12 @@ export default class Message extends Component {
     messages: PropTypes.array.isRequired,
     addReply: PropTypes.func.isRequired,
     closeSuccess: PropTypes.func.isRequired,
-    alert: PropTypes.bool.isRequired
+    alert: PropTypes.bool.isRequired,
+    messageOpen: PropTypes.func.isRequired
   };
 
   componentDidMount () {
+
   }
 
   handleSubmit (e) {

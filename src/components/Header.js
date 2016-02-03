@@ -19,7 +19,7 @@ export default class Header extends Component {
       <Navbar inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href='/'>Helpdesk</a> <Label>v0.1.5</Label>
+            <a href='/'>Helpdesk</a> <Label>v0.1.6</Label>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

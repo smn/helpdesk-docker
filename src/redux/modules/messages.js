@@ -9,23 +9,25 @@ export const initialState = {
   'messages': [
     {'id': 1, 'received_at_nice': 'Today at 18:01', 'received_at': '2016-01-22 18:01', 'from': '+27845000001',
       'message': 'Aliquam pretium risus nisi, ac cursus erat laoreet in. Nunc accumsan mauris eget turpis sagittis, in gravida metus egestas. Sed turpis duis.',
-      'replies': []
+      'replies': [], case: null
     },
     {'id': 2, 'received_at_nice': 'Today at 12:01', 'received_at': '2016-01-22 12:01', 'from': '+27845000002',
       'message': 'Phasellus consectetur lacinia lacinia. Aliquam eleifend interdum velit eget pulvinar. Nullam sodales facilisis velit vitae porttitor nullam',
-      'replies': []
+      'replies': [], case: null
     },
     {'id': 3, 'received_at_nice': 'Yesterday at 08:01', 'received_at': '2016-01-21 08:01', 'from': '+27845000003',
       'message': 'Phasellus consectetur lacinia lacinia. Aliquam eleifend interdum velit eget pulvinar. Nullam sodales facilisis velit vitae porttitor nullam',
-      'replies': []
+      'replies': [], case: null
     },
     {'id': 4, 'received_at_nice': '2 days ago at 18:11', 'received_at': '2016-01-20 18:11', 'from': '+27845000003',
       'message': 'Fusce porttitor ante a nibh suscipit euismod. Etiam vel vulputate diam, a dictum erat. Etiam imperdiet arcu eget arcu varius porta volutpat.',
-      'replies': []
+      'replies': [], case: null
     }
   ],
   'messages_deleted': [],
   'messages_archived': [],
+  'messages_cases': [],
+  'message_open': {},
   'inboxstage': 0,
   'received_at': null,
   'sent': false
@@ -39,6 +41,8 @@ export const ARCHIVEMESSAGE = 'ARCHIVEMESSAGE'
 export const LOADMESSAGES = 'LOADMESSAGES'
 export const ADDREPLY = 'ADDREPLY'
 export const CLOSESUCCESS = 'CLOSESUCCESS'
+export const MARKASCASE = 'MARKASCASE'
+export const MESSAGEOPEN = 'MESSAGEOPEN'
 
 // ------------------------------------
 // Actions
@@ -48,13 +52,17 @@ export const archiveMessage = createAction(ARCHIVEMESSAGE)
 export const loadMessages = createAction(LOADMESSAGES)
 export const addReply = createAction(ADDREPLY)
 export const closeSuccess = createAction(CLOSESUCCESS)
+export const markAsCase = createAction(MARKASCASE)
+export const messageOpen = createAction(MESSAGEOPEN)
 
 export const actions = {
   deleteMessage,
   archiveMessage,
   addReply,
   loadMessages,
-  closeSuccess
+  closeSuccess,
+  markAsCase,
+  messageOpen
 }
 
 // ------------------------------------
@@ -88,5 +96,12 @@ export default handleActions({
   })),
   CLOSESUCCESS: (state, { payload }) => (Object.assign({}, state, {
     sent: false
+  })),
+  MARKASCASE: (state, { payload }) => (Object.assign({}, state, {
+    messages: state.messages.filter(x => x.id !== payload),
+    messages_cases: Object.assign([], state.messages_cases, state.messages_cases.push(state.messages.filter(x => x.id === parseInt(payload, 10))[0]))
+  })),
+  MESSAGEOPEN: (state, { payload }) => (Object.assign({}, state, {
+    message_open: payload
   }))
 }, initialState)
