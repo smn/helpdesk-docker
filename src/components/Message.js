@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as messageActions } from '../redux/modules/messages'
 // import MessageReply from './'
-import { Table, Input, Button, Alert } from 'react-bootstrap'
+import { Table, Input, Button, Alert, Grid, Row, Col } from 'react-bootstrap'
 import moment from 'moment'
 
 const mapStateToProps = (state) => ({
@@ -96,25 +96,31 @@ export default class Message extends Component {
         <div>
           <h1>Message from { message.from }</h1>
           { alertbox }
-          <Table responsive striped >
-            <thead>
-              <tr>
-                <th>Message</th><th width='300px'>Message Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr key={message.id}>
-                <td>
-                  { message.message }
-                </td>
-                <td>
-                  <strong>Recieved: </strong>{ moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
-                </td>
-              </tr>
-              { replies }
-            </tbody>
-          </Table>
-          { replyForm }
+          <Grid>
+            <Row>
+              <Col sm={12} md={12}>
+                <Table responsive striped >
+                  <thead>
+                    <tr>
+                      <th>Message</th><th width='300px'>Message Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr key={message.id}>
+                      <td>
+                        { message.message }
+                      </td>
+                      <td>
+                        <strong>Recieved: </strong>{ moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
+                      </td>
+                    </tr>
+                    { replies }
+                  </tbody>
+                </Table>
+                { replyForm }
+              </Col>
+            </Row>
+          </Grid>
         </div>
       )
     }
