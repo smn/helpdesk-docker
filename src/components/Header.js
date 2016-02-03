@@ -19,13 +19,12 @@ export default class Header extends Component {
       <Navbar inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href='/'>Helpdesk</a> <Label>v0.1.6</Label>
+            <a href='/'>Helpdesk</a> <Label>v0.1.7</Label>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem eventKey={4} href='/faq'>FAQ</NavItem>
             <LinkContainer to={{ pathname: '/inbox' }}>
               <NavItem eventKey={1}>Inbox <Badge>{ messages.length }</Badge></NavItem>
             </LinkContainer>
@@ -34,6 +33,9 @@ export default class Header extends Component {
             </LinkContainer>
             <LinkContainer to={{ pathname: '/inbox/filter/archive' }}>
               <NavItem eventKey={3}>Archive</NavItem>
+            </LinkContainer>
+            <LinkContainer to={{ pathname: '/faqs' }}>
+              <NavItem eventKey={4}>FAQ</NavItem>
             </LinkContainer>
             <LinkContainer to={{ pathname: '/login' }}>
               <NavItem eventKey={5}>Login</NavItem>

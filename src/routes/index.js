@@ -11,7 +11,8 @@ import HomeView from 'views/HomeView/HomeView'
 import LoginView from 'views/LoginView/LoginView'
 import InboxView from 'views/InboxView/InboxView'
 import CaseView from 'views/CaseView/CaseView'
-import { MessageList, Message, CaseList, Case, CaseCreate } from 'components/'
+import FaqView from 'views/FaqView/FaqView'
+import { MessageList, Message, CaseList, Case, CaseCreate, FaqCategoryList, FaqCategory } from 'components/'
 import NotFoundView from 'views/NotFoundView/NotFoundView'
 
 export default (
@@ -28,6 +29,10 @@ export default (
       <Route path='create/:messageId' component={CaseCreate}/>
       <Route path='case/:id' component={Case}/>
       <Route path='filter/:filter' component={CaseList}/>
+    </Route>
+    <Route path='faqs' component={FaqView}>
+      <IndexRoute component={FaqCategoryList}/>
+      <Route path='category/:id' component={FaqCategory}/>
     </Route>
     <Route path='/404' component={NotFoundView} />
     <Redirect from='*' to='/404' />
