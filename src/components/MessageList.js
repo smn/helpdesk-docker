@@ -18,6 +18,7 @@ export default class MessageList extends Component {
     messages_archived: PropTypes.array.isRequired,
     deleteMessage: PropTypes.func.isRequired,
     archiveMessage: PropTypes.func.isRequired,
+    unarchiveMessage: PropTypes.func.isRequired,
     loadMessages: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
     children: PropTypes.object.isRequired
@@ -48,8 +49,10 @@ export default class MessageList extends Component {
           received_at_nice={message.received_at_nice}
           from={message.from}
           message={message.message}
+          filter={filter}
           onMessageDeleteClicked={this.props.deleteMessage}
-          onMessageArchiveClicked={this.props.archiveMessage} />
+          onMessageArchiveClicked={this.props.archiveMessage}
+          onMessageUnarchiveClicked={this.props.unarchiveMessage} />
       )
 
     return (

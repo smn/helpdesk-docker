@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as faqActions } from '../redux/modules/faqs'
-import { FaqListItem } from './'
+import { FaqListItem, CaseCreateForm } from './'
 import { Table } from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
@@ -45,12 +45,15 @@ export default class FaqList extends Component {
       )
 
     return (
-      <Table responsive striped hover>
-        <tbody>
-         { nodes }
-         {this.props.children}
-        </tbody>
-      </Table>
+      <div>
+        Create <CaseCreateForm />
+        <Table responsive striped hover>
+          <tbody>
+           { nodes }
+           {this.props.children}
+          </tbody>
+        </Table>
+      </div>
     )
   }
 }

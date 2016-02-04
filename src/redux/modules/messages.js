@@ -66,6 +66,7 @@ export const initialState = {
 // ------------------------------------
 export const DELETEMESSAGE = 'DELETEMESSAGE'
 export const ARCHIVEMESSAGE = 'ARCHIVEMESSAGE'
+export const UNARCHIVEMESSAGE = 'UNARCHIVEMESSAGE'
 export const LOADMESSAGES = 'LOADMESSAGES'
 export const ADDREPLY = 'ADDREPLY'
 export const CLOSESUCCESS = 'CLOSESUCCESS'
@@ -77,6 +78,7 @@ export const MESSAGEOPEN = 'MESSAGEOPEN'
 // ------------------------------------
 export const deleteMessage = createAction(DELETEMESSAGE)
 export const archiveMessage = createAction(ARCHIVEMESSAGE)
+export const unarchiveMessage = createAction(UNARCHIVEMESSAGE)
 export const loadMessages = createAction(LOADMESSAGES)
 export const addReply = createAction(ADDREPLY)
 export const closeSuccess = createAction(CLOSESUCCESS)
@@ -86,6 +88,7 @@ export const messageOpen = createAction(MESSAGEOPEN)
 export const actions = {
   deleteMessage,
   archiveMessage,
+  unarchiveMessage,
   addReply,
   loadMessages,
   closeSuccess,
@@ -114,6 +117,10 @@ export default handleActions({
   ARCHIVEMESSAGE: (state, { payload }) => (Object.assign({}, state, {
     messages: state.messages.filter(x => x.id !== payload),
     messages_archived: Object.assign([], state.messages_archived, state.messages_archived.push(state.messages.filter(x => x.id === parseInt(payload, 10))[0]))
+  })),
+  UNARCHIVEMESSAGE: (state, { payload }) => (Object.assign({}, state, {
+    messages_archived: state.messages_archived.filter(x => x.id !== payload),
+    messages: Object.assign([], state.messages, state.messages.push(state.messages_archived.filter(x => x.id === parseInt(payload, 10))[0]))
   })),
   LOADMESSAGES: (state, { payload }) => (Object.assign({}, state, {
     received_at: moment().toJSON()

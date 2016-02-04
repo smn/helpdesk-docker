@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as messageActions } from '../redux/modules/messages'
+import { actions as caseActions } from '../redux/modules/cases'
 import { FaqModal } from './'
 // import MessageReply from './'
 import { Table, Input, Button, Alert, Grid, Row, Col, Glyphicon, Tabs, Tab } from 'react-bootstrap'
@@ -95,6 +96,17 @@ export default class Message extends Component {
       </form>
     )
 
+    const addCategoriesForm = (
+      <form>
+        <Input type='select' label='Add categories to message (hold ctrl/cmd key for multiple)' multiple>
+          <option value='compliment'>compliment</option>
+          <option value='complaint'>complaint</option>
+          <option value='question'>question</option>
+          <option value='optout'>optout</option>
+        </Input>
+      </form>
+    )
+
     if (!hasMessages) {
       return (
           <h1>Message not found</h1>
@@ -161,6 +173,10 @@ export default class Message extends Component {
                             <br />
                             { newCaseForm }
                           </Tab>
+                          <Tab eventKey={3} title='Add categories'>
+                            <br />
+                            { addCategoriesForm }
+                          </Tab>
                         </Tabs>
                       </td>
                     </tr>
@@ -182,6 +198,8 @@ export default class Message extends Component {
   }
 }
 
-export default connect(mapStateToProps, messageActions)(Message)
+const messageAndCaseActions = Object.assign({}, messageActions, caseActions)
+
+export default connect(mapStateToProps, messageAndCaseActions)(Message)
 
         // <ButtonInput bsStyle='primary' type='submit' value='Reply' onClick={this.handleReplyClick.bind(this)} />

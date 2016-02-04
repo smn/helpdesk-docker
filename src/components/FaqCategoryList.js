@@ -44,12 +44,15 @@ export default class FaqCategoryList extends Component {
       )
 
     return (
-      <Table responsive striped hover>
-        <tbody>
-         { nodes }
-         {this.props.children}
-        </tbody>
-      </Table>
+      <div>
+          <Table responsive striped hover>
+            <tbody>
+             { nodes }
+             {this.props.children}
+            </tbody>
+          </Table>
+      </div>
+
     )
   }
 }
