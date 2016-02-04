@@ -21,7 +21,7 @@ export class LoginForm extends Component {
     };
 
     render () {
-      let blocked = this.props.blocked ? <Alert bsStyle='danger'><strong>Login Failed:</strong> Please try again.</Alert> : ''
+      let blocked = this.props.blocked ? <Alert bsStyle='danger'><strong>Login Failed:</strong> Invalid username and/or PIN. Please try again.</Alert> : ''
       return (
         <Grid className='text-center'>
           <Row>
@@ -29,11 +29,11 @@ export class LoginForm extends Component {
               <PageHeader>Login</PageHeader>
               { blocked }
               <form>
-                  <Input type='text' label='Username' placeholder='Enter cellphone' />
-                  <Input type='password' label='Password / PIN' />
-                  <Link to='/inbox'><Button>Login</Button></Link>
-                  <Button onClick={() => this.props.faillogin()}>Login (Fail)</Button>
-                  <Button onClick={() => this.props.forgotton(1)}>Forgotton Password</Button>
+                  <Input type='text' label='Username' placeholder='Enter username' />
+                  <Input type='password' placeholder='Enter PIN' label='PIN' />
+                  <Link to='/inbox'><Button bsStyle='primary'>Login</Button></Link>{ ' ' }
+                  <Button onClick={() => this.props.faillogin()}>Login (Fail)</Button>{ ' ' }
+                  <Button onClick={() => this.props.forgotton(1)}>Forgot PIN?</Button>{ ' ' }
               </form>
             </Col>
           </Row>

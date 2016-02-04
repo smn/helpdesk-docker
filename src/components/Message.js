@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { actions as messageActions } from '../redux/modules/messages'
+import { FaqModal } from './'
 // import MessageReply from './'
-import { Table, Input, Button, Alert, Grid, Row, Col, Glyphicon } from 'react-bootstrap'
+import { Table, Input, Button, Alert, Grid, Row, Col, Glyphicon, Tabs, Tab } from 'react-bootstrap'
 import moment from 'moment'
 
 const mapStateToProps = (state) => ({
@@ -70,12 +71,11 @@ export default class Message extends Component {
   render () {
     const messages = this.props.messages.filter(x => x.id === this.messageId())
     const hasMessages = messages.length > 0
-    const searchFaqButton = <Button>Search approved answers</Button>
     const replyBox = (
       <Input
         type='textarea'
-        label='Reply'
-        placeholder='Enter your response, then hit return'
+        label='Freeform reply:'
+        placeholder='Enter your reply. Press enter to send.'
         autoFocus='true'
         onChange={this.handleChange.bind(this)}
         onKeyDown={this.handleSubmit.bind(this)}
@@ -83,10 +83,19 @@ export default class Message extends Component {
     )
     const replyForm = (
       <div>
+        <FaqModal showModal={false} />
         { replyBox }
-        <Input type='text' buttonAfter={searchFaqButton} />
       </div>
     )
+
+    const newCaseForm = (
+      <form>
+        <Input type='text' label='Case subject'
+          placeholder='Enter a short description/summary for the case. Press enter to create the case.'
+        />
+      </form>
+    )
+
     if (!hasMessages) {
       return (
           <h1>Message not found</h1>
@@ -96,10 +105,8 @@ export default class Message extends Component {
       const replies = message.replies.map(reply =>
         <tr key={reply.id}>
           <td>
-            { reply.reply }
-          </td>
-          <td>
-            <strong>Sent: </strong>{ moment(reply.sent_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }<br />
+            <p>{ reply.reply }</p>
+          <strong>Sent: </strong>{ moment(reply.sent_at).format('dddd, MMMM Do YYYY, h:mm:ss a') } <br />
             <strong>Sender: </strong>You<br />
           </td>
         </tr>
@@ -134,10 +141,24 @@ export default class Message extends Component {
                         { message.message }
                       </td>
                     </tr>
+                  </tbody>
+                </Table>
+                <Table responsive striped >
+
+                  <tbody>
                     { replies }
                     <tr>
                       <td>
-                        { replyForm }
+                        <Tabs defaultActiveKey={1}>
+                          <Tab eventKey={1} title="Send a reply">
+                              <br />
+                              { replyForm }
+                          </Tab>
+                          <Tab eventKey={2} title="Open a case">
+                            <br />
+                            { newCaseForm }
+                          </Tab>
+                        </Tabs>
                       </td>
                     </tr>
                   </tbody>
@@ -145,7 +166,6 @@ export default class Message extends Component {
 
               </Col>
               <Col sm={4} md={4}>
-                <Link to={`/cases/create/${this.messageId()}`}><Button><Glyphicon glyph='folder-open' /> &nbsp;Open Case</Button></Link>{ ' ' }
                 <Button onClick={() => this.handleArchive() }><Glyphicon glyph='download-alt' /> &nbsp;Archive</Button>{ ' ' }
                 <Button onClick={() => this.handleDelete() }><Glyphicon glyph='trash' /> &nbsp;Delete</Button>
                 <hr />

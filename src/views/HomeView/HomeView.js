@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { Grid, Row, Col } from 'react-bootstrap'
 
 // We define mapStateToProps where we'd normally use
 // the @connect decorator so the data requirements are clear upfront, but then
@@ -14,13 +15,20 @@ export class HomeView extends React.Component {
 
   render () {
     return (
-        <div>
-          <h2>Welcome to the helpdesk prototype</h2>
-          <ul>
-            <li><Link to='/login'>Login as normal user</Link></li>
-          </ul>
-
-        </div>
+      <Grid>
+        <Row>
+          <Col sm={12} md={12}>
+            <div>
+                <h2>Welcome to the helpdesk prototype</h2>
+                <ul>
+                  <li><Link to='/login'>Login as Senior Operator (full access)</Link></li>
+                  <li>Login as Junior Operator (restricted access)</li>
+                  <li>Login as Administrator</li>
+                </ul>
+            </div>
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }

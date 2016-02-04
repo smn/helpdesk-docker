@@ -17,10 +17,10 @@ export class LoginForgottenNewForm extends Component {
         <Grid className='text-center'>
           <Row>
             <Col md={6} mdOffset={3}>
-              <PageHeader>Enter a new password</PageHeader>
-              <p>Your code was valid. Please enter a new memorable password or PIN.</p>
+              <PageHeader>Enter a new PIN</PageHeader>
+              <p>Your code was valid. Please enter a new PIN.</p>
               <form>
-                <Input type='password' label='New Password / PIN' />
+                <Input type='password' label='New PIN' />
                 <Button onClick={() => this.props.forgotton(0)}>Reset</Button>
               </form>
             </Col>

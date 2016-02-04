@@ -17,8 +17,8 @@ export class LoginForgottenCodeForm extends Component {
         <Grid className='text-center'>
           <Row>
             <Col md={6} mdOffset={3}>
-            <PageHeader>Enter reset code</PageHeader>
-              <p>Please check your cellphone SMS inbox for a code and enter it here.</p>
+            <PageHeader>Validate Code</PageHeader>
+              <p>Please enter the code we sent you.</p>
               <form>
                   <Input type='text' label='Code' placeholder='Enter code' />
                   <Button onClick={() => this.props.forgotton(3)}>Validate code</Button>

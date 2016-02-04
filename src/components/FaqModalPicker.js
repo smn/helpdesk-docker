@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
   results: state.faqs.results
 })
 
-export default class FaqCategoryList extends Component {
+export default class FaqModalPicker extends Component {
   static propTypes = {
     categories: PropTypes.array.isRequired,
     results: PropTypes.array.isRequired,
@@ -54,4 +54,4 @@ export default class FaqCategoryList extends Component {
   }
 }
 
-export default connect(mapStateToProps, faqActions)(FaqCategoryList)
+export default connect(mapStateToProps, faqActions)(FaqModalPicker)

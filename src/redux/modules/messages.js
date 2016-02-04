@@ -5,22 +5,63 @@ import moment from 'moment'
 // Initial State
 // ------------------------------------
 
+// I\'m still breastfeeding my baby. Can I get pregnant again if I just had a baby and am still feeding her milk?
+// I am very scared, my baby has diarrhoea and it’s not going away. What do I do?
+// My baby is sleeping a lot, is that normal?
+// How many times must I visit the clinic when I am pregnant?
+// I am 4 months pregnant and I am crying a lot and don’t know why. Is something wrong with me or my baby?
+// I want to register my baby. Where must I go?
+// My friend said I must take my baby for vaccine. I don’t want to, why must I give my baby injections?
+// My feet are sore & swollen, is this normal?
+// I am 6 months pregnant. I am feeling very tired and sick all the time. What should I do?
+// When will I start feeling the baby moving?
+// i havnt felt my baby move for 2 days. Wat shld i do?
+
+
 export const initialState = {
   'messages': [
     {'id': 1, 'received_at_nice': 'Today at 18:01', 'received_at': '2016-01-22 18:01', 'from': '+27845000001',
-      'message': 'Aliquam pretium risus nisi, ac cursus erat laoreet in. Nunc accumsan mauris eget turpis sagittis, in gravida metus egestas. Sed turpis duis.',
+      'message': 'I\'m still breastfeeding my baby. Can I get pregnant again if I just had a baby and am still feeding her milk?',
       'replies': [], case: null
     },
     {'id': 2, 'received_at_nice': 'Today at 12:01', 'received_at': '2016-01-22 12:01', 'from': '+27845000002',
-      'message': 'Phasellus consectetur lacinia lacinia. Aliquam eleifend interdum velit eget pulvinar. Nullam sodales facilisis velit vitae porttitor nullam',
+      'message': 'I am very scared, my baby has diarrhoea and it’s not going away. What do I do?',
       'replies': [], case: null
     },
     {'id': 3, 'received_at_nice': 'Yesterday at 08:01', 'received_at': '2016-01-21 08:01', 'from': '+27845000003',
-      'message': 'Phasellus consectetur lacinia lacinia. Aliquam eleifend interdum velit eget pulvinar. Nullam sodales facilisis velit vitae porttitor nullam',
+      'message': 'My baby is sleeping a lot, is that normal?',
       'replies': [], case: null
     },
-    {'id': 4, 'received_at_nice': '2 days ago at 18:11', 'received_at': '2016-01-20 18:11', 'from': '+27845000003',
-      'message': 'Fusce porttitor ante a nibh suscipit euismod. Etiam vel vulputate diam, a dictum erat. Etiam imperdiet arcu eget arcu varius porta volutpat.',
+    {'id': 4, 'received_at_nice': '2 days ago at 22:11', 'received_at': '2016-01-20 22:11', 'from': '+27845000003',
+      'message': 'How many times must I visit the clinic when I am pregnant?',
+      'replies': [], case: null
+    },
+    {'id': 5, 'received_at_nice': '2 days ago at 20:14', 'received_at': '2016-01-20 20:14', 'from': '+27845000033',
+      'message': 'I am 4 months pregnant and I am crying a lot and don\'t know why. Is something wrong with me or my baby?',
+      'replies': [], case: null
+    },
+    {'id': 6, 'received_at_nice': '2 days ago at 18:39', 'received_at': '2016-01-20 18:39', 'from': '+27845000045',
+      'message': 'I want to register my baby. Where must I go?',
+      'replies': [], case: null
+    },
+    {'id': 7, 'received_at_nice': '2 days ago at 17:33', 'received_at': '2016-01-20 17:33', 'from': '+27845000023',
+      'message': 'My friend said I must take my baby for vaccine. I don\'t want to, why must I give my baby injections?',
+      'replies': [], case: null
+    },
+    {'id': 8, 'received_at_nice': '2 days ago at 15:56', 'received_at': '2016-01-20 15:56', 'from': '+27845000011',
+      'message': 'My feet are sore and swollen, is this normal?',
+      'replies': [], case: null
+    },
+    {'id': 9, 'received_at_nice': '2 days ago at 15:44', 'received_at': '2016-01-20 15:44', 'from': '+27845000076',
+      'message': 'I am 6 months pregnant. I am feeling very tired and sick all the time. What should I do?',
+      'replies': [], case: null
+    },
+    {'id': 10, 'received_at_nice': '2 days ago at 11:03', 'received_at': '2016-01-20 11:03', 'from': '+27845000047',
+      'message': 'When will I start feeling the baby moving?',
+      'replies': [], case: null
+    },
+    {'id': 11, 'received_at_nice': '2 days ago at 09:03', 'received_at': '2016-01-20 09:03', 'from': '+27845000099',
+      'message': 'i havnt felt my baby move for 2 days. Wat shld i do?',
       'replies': [], case: null
     }
   ],

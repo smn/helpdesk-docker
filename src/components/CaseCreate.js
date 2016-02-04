@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as caseActions } from '../redux/modules/cases'
 import { actions as messageActions } from '../redux/modules/messages'
-import { Input } from 'react-bootstrap'
+import { Input, Button, Glyphicon } from 'react-bootstrap'
+import { Link } from 'react-router'
 
 const mapStateToProps = (state) => ({
   messages: state.messages.messages,
@@ -60,8 +61,9 @@ export default class CaseCreate extends Component {
         <div>
           <h1>Create case</h1>
           <strong>Initial message:</strong> { message.message } <hr />
+          <p><Link to={`/inbox/message/${message.id}`}><Button><Glyphicon glyph='envelope' /> Back to message details</Button></Link></p>
           <form>
-            <Input type='text' label='Case subject' placeholder='Enter short summary text, then hit return'
+            <Input type='text' label='Case subject' placeholder='Enter a short description/summary for the case. Press enter to create the case.'
               onChange={this.handleChange.bind(this)}
               onKeyDown={this.handleSubmit.bind(this)} />
           </form>

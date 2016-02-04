@@ -17,11 +17,11 @@ export class LoginForgottenForm extends Component {
         <Grid className='text-center'>
           <Row>
             <Col md={6} mdOffset={3}>
-            <PageHeader>Forgotten Password</PageHeader>
-              <p>Please enter your cellphone and a reset code will be sent to it.</p>
+            <PageHeader>PIN Recovery</PageHeader>
+              <p>Please enter your username and a reset code will be sent to you.</p>
               <form>
-                  <Input type='text' label='Username' placeholder='Enter cellphone' />
-                  <Button onClick={() => this.props.forgotton(2)}>Send code to cellphone</Button>
+                  <Input type='text' label='Username' placeholder='Enter username' />
+                  <Button onClick={() => this.props.forgotton(2)}>Send code</Button>
               </form>
             </Col>
           </Row>

@@ -26,16 +26,14 @@ gulp.task('css', function() { 
     return sass(config.sassPath + '/style.scss', {
              style: 'compressed',
              loadPath: [
-                 './app/static/scss',
                  config.bowerDir + '/bootstrap-sass/assets/stylesheets',
                  config.bowerDir + '/font-awesome/scss',
              ]
          }) .on("error", notify.onError(function (error) {
                  return "Error: " + error.message;
              })) 
-         .pipe(gulp.dest('./dist/css'))
         .pipe(gulp.dest(config.styleguideDir))
-        .pipe(gulp.dest(config.prototypeDir + '/app/css'));
+        .pipe(gulp.dest('./src/static'));
 });
 
 // Rerun the task when a file changes
