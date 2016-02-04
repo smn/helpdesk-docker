@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Glyphicon, Button } from 'react-bootstrap'
+import moment from 'moment'
 
 export default class CaseListItem extends Component {
   static propTypes = {
@@ -15,7 +16,7 @@ export default class CaseListItem extends Component {
     const { id, opened_at, from, subject, onCaseDeleteClicked, onCaseArchiveClicked } = this.props
     return (
       <tr>
-        <td>{ opened_at }</td>
+        <td>{ moment(opened_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }</td>
         <td>{ from }</td>
         <td><Link to={`/cases/case/${id}`}>{ subject }</Link></td>
         <td>

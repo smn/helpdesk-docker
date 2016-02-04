@@ -19,10 +19,10 @@ export default class MessageListItem extends Component {
         <td>{ from }</td>
         <td><Link to={`/inbox/message/${id}`}>{ message }</Link></td>
         <td width='200px'>
-          <Link to={`/inbox/message/${id}`}><Button><Glyphicon glyph='envelope' /></Button></Link>{ ' ' }
-          <Link to={`/cases/create/${id}`}><Button><Glyphicon glyph='folder-open' /></Button></Link>{ ' ' }
-          <Button onClick={() => onMessageArchiveClicked(id)}><Glyphicon glyph='download-alt' /></Button>{ ' ' }
-          <Button onClick={() => onMessageDeleteClicked(id)}><Glyphicon glyph='trash' /></Button>
+          <Link to={`/inbox/message/${id}`} title='Open Message'><Button><Glyphicon glyph='envelope' /></Button></Link>{ ' ' }
+          <Link to={`/cases/create/${id}`} title='Open Case'><Button><Glyphicon glyph='folder-open' /></Button></Link>{ ' ' }
+          <Button onClick={() => onMessageArchiveClicked(id)} title='Archive'><Glyphicon glyph='download-alt' /></Button>{ ' ' }
+          <Button onClick={() => onMessageDeleteClicked(id)} title='Delete'><Glyphicon glyph='trash' /></Button>
         </td>
       </tr>
     )

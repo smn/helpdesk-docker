@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import { actions as messageActions } from '../redux/modules/messages'
 import { FaqModal } from './'
 // import MessageReply from './'
@@ -106,7 +105,7 @@ export default class Message extends Component {
         <tr key={reply.id}>
           <td>
             <p>{ reply.reply }</p>
-          <strong>Sent: </strong>{ moment(reply.sent_at).format('dddd, MMMM Do YYYY, h:mm:ss a') } <br />
+            <strong>Sent: </strong>{ moment(reply.sent_at).format('dddd, MMMM Do YYYY, h:mm:ss a') } <br />
             <strong>Sender: </strong>You<br />
           </td>
         </tr>
@@ -144,17 +143,21 @@ export default class Message extends Component {
                   </tbody>
                 </Table>
                 <Table responsive striped >
-
+                  <thead>
+                    <tr>
+                      <th>Responses</th>
+                    </tr>
+                  </thead>
                   <tbody>
                     { replies }
                     <tr>
                       <td>
                         <Tabs defaultActiveKey={1}>
-                          <Tab eventKey={1} title="Send a reply">
+                          <Tab eventKey={1} title='Send a reply'>
                               <br />
                               { replyForm }
                           </Tab>
-                          <Tab eventKey={2} title="Open a case">
+                          <Tab eventKey={2} title='Open a case'>
                             <br />
                             { newCaseForm }
                           </Tab>

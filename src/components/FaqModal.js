@@ -11,9 +11,9 @@ class FaqModal extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // from the path `/inbox/messages/:id`
-    //this.setState({ body: 'WOrd' })
+    // this.setState({ body: 'WOrd' })
   }
 
   closeModal () {
@@ -25,13 +25,13 @@ class FaqModal extends Component {
   }
 
   render () {
-     //const { showModal, body } = this.props
-     let body
-     if(this.state.body === 'categories'){
-       body = <FaqModalPicker />
-     } else {
-       body = <h3>What up?</h3>
-     }
+     // const { showModal, body } = this.props
+    let body
+    if (this.state.body === 'categories') {
+      body = <FaqModalPicker />
+    } else {
+      body = <h3>What up?</h3>
+    }
 
     return (
       <div>
@@ -60,7 +60,8 @@ class FaqModal extends Component {
 }
 
 FaqModal.propTypes = {
-  showModal: PropTypes.bool.isRequired
+  showModal: PropTypes.bool.isRequired,
+  children: PropTypes.object.isRequired
 }
 
 export default FaqModal

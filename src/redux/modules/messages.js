@@ -5,19 +5,6 @@ import moment from 'moment'
 // Initial State
 // ------------------------------------
 
-// I\'m still breastfeeding my baby. Can I get pregnant again if I just had a baby and am still feeding her milk?
-// I am very scared, my baby has diarrhoea and it’s not going away. What do I do?
-// My baby is sleeping a lot, is that normal?
-// How many times must I visit the clinic when I am pregnant?
-// I am 4 months pregnant and I am crying a lot and don’t know why. Is something wrong with me or my baby?
-// I want to register my baby. Where must I go?
-// My friend said I must take my baby for vaccine. I don’t want to, why must I give my baby injections?
-// My feet are sore & swollen, is this normal?
-// I am 6 months pregnant. I am feeling very tired and sick all the time. What should I do?
-// When will I start feeling the baby moving?
-// i havnt felt my baby move for 2 days. Wat shld i do?
-
-
 export const initialState = {
   'messages': [
     {'id': 1, 'received_at_nice': 'Today at 18:01', 'received_at': '2016-01-22 18:01', 'from': '+27845000001',
