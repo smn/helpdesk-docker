@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { LinkContainer } from 'react-router-bootstrap'
 import { actions as messageActions } from '../redux/modules/messages'
 import { MessageListItem } from './'
-import { Table } from 'react-bootstrap'
+import { Table, Nav, NavDropdown, NavItem, MenuItem } from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
   messages: state.messages.messages,
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => ({
 
 export default class MessageList extends Component {
   static propTypes = {
+    filter: PropTypes.string,
     messages: PropTypes.object.isRequired,
     messages_archived: PropTypes.array.isRequired,
     messages_inbox: PropTypes.array.isRequired,
@@ -31,10 +33,42 @@ export default class MessageList extends Component {
   }
 
   getMessages (filter) {
-    if (filter === 'archived') {
-      return this.props.messages_archived
-    } else {
-      return this.props.messages_inbox
+    let filtered = []
+    let i
+    const messageIds = Object.keys(this.props.messages)
+    switch (filter) {
+      case 'archived':
+        return this.props.messages_archived
+      case 'question':
+        for (i=1;i<messageIds.length+1; i++) {
+          if (this.props.messages[i].categories.indexOf('question') !== -1) {
+            filtered.push(this.props.messages[i].id)
+          }
+        }
+        return filtered
+      case 'complaint':
+        for (i=1;i<messageIds.length+1; i++) {
+          if (this.props.messages[i].categories.indexOf('complaint') !== -1) {
+            filtered.push(this.props.messages[i].id)
+          }
+        }
+        return filtered
+      case 'compliment':
+        for (i=1;i<messageIds.length+1; i++) {
+          if (this.props.messages[i].categories.indexOf('compliment') !== -1) {
+            filtered.push(this.props.messages[i].id)
+          }
+        }
+        return filtered
+      case 'optout':
+        for (i=1;i<messageIds.length+1; i++) {
+          if (this.props.messages[i].categories.indexOf('optout') !== -1) {
+            filtered.push(this.props.messages[i].id)
+          }
+        }
+        return filtered
+      default:
+        return this.props.messages_inbox
     }
   }
 
@@ -55,14 +89,31 @@ export default class MessageList extends Component {
       )
 
     return (
-      <Table responsive striped hover>
-        <tbody>
-         { nodes }
-         {this.props.children}
-        </tbody>
-      </Table>
+      <div>
+        <Nav bsStyle="tabs" activeKey={1}>
+          <LinkContainer to={{ pathname: '/inbox' }}><NavItem eventKey={1}>Inbox</NavItem></LinkContainer>
+            <NavDropdown eventKey={4} title="Category" id="nav-dropdown">
+              <LinkContainer to={{ pathname: '/inbox/filter/question' }}><MenuItem eventKey="2.1">Questions</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/compliment' }}><MenuItem eventKey="2.4">Compliments</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/complaint' }}><MenuItem eventKey="2.4">Complaints</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/optout' }}><MenuItem eventKey="2.4">Optouts</MenuItem></LinkContainer>
+            </NavDropdown>
+        </Nav>
+        <Table responsive striped hover>
+          <tbody>
+           { nodes }
+           {this.props.children}
+          </tbody>
+        </Table>
+      </div>
     )
   }
 }
 
 export default connect(mapStateToProps, messageActions)(MessageList)
+// <form>
+//     <Input type="select" label="Filter by Category" onChange={this.switchCategory}>
+//       <option value="other">...</option>
+//       <option value="question">Question</option>
+//     </Input>
+// </form>

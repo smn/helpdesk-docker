@@ -45,7 +45,7 @@ export const initialState = {
     },
     10: {'id': 10, 'received_at_nice': '2 days ago at 11:03', 'received_at': '2016-01-20 11:03', 'from': '+27845000047',
       'message': 'When will I start feeling the baby moving?',
-      'replies': [], case: 1454665923921, archived: false, deleted: false, categories: [], data: [{'Clinic Code': '343242'}, {'Language': 'en'}, {'Registered': 'Yes'}]
+      'replies': [], case: 1454665923921, archived: false, deleted: false, categories: ['question'], data: [{'Clinic Code': '343242'}, {'Language': 'en'}, {'Registered': 'Yes'}]
     },
     11: {'id': 11, 'received_at_nice': '2 days ago at 09:03', 'received_at': '2016-01-20 09:03', 'from': '+27845000099',
       'message': 'i havnt felt my baby move for 2 days. Wat shld i do?',
