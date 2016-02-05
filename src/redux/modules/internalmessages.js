@@ -60,6 +60,7 @@ export default handleActions({
     internalmessages_normal: Object.assign([], state.internalmessages_normal, [parseInt(payload.id, 10)].concat(state.internalmessages_normal))
   })),
   PINMESSAGE: (state, { payload }) => (Object.assign({}, state, {
-    internalmessages_pinned: Object.assign([], state.internalmessages_pinned, state.internalmessages_pinned.push(parseInt(payload, 10)))
+    internalmessages_pinned: Object.assign([], state.internalmessages_pinned, state.internalmessages_pinned.push(parseInt(payload, 10))),
+    internalmessages_normal: state.internalmessages_normal.filter(x => x !== parseInt(payload, 10))
   }))
 }, initialState)
