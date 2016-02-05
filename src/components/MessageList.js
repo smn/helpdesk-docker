@@ -40,28 +40,28 @@ export default class MessageList extends Component {
       case 'archived':
         return this.props.messages_archived
       case 'question':
-        for (i=1;i<messageIds.length+1; i++) {
+        for (i = 1; i < messageIds.length + 1; i++) {
           if (this.props.messages[i].categories.indexOf('question') !== -1) {
             filtered.push(this.props.messages[i].id)
           }
         }
         return filtered
       case 'complaint':
-        for (i=1;i<messageIds.length+1; i++) {
+        for (i = 1; i < messageIds.length + 1; i++) {
           if (this.props.messages[i].categories.indexOf('complaint') !== -1) {
             filtered.push(this.props.messages[i].id)
           }
         }
         return filtered
       case 'compliment':
-        for (i=1;i<messageIds.length+1; i++) {
+        for (i = 1; i < messageIds.length + 1; i++) {
           if (this.props.messages[i].categories.indexOf('compliment') !== -1) {
             filtered.push(this.props.messages[i].id)
           }
         }
         return filtered
       case 'optout':
-        for (i=1;i<messageIds.length+1; i++) {
+        for (i = 1; i < messageIds.length + 1; i++) {
           if (this.props.messages[i].categories.indexOf('optout') !== -1) {
             filtered.push(this.props.messages[i].id)
           }
@@ -90,13 +90,13 @@ export default class MessageList extends Component {
 
     return (
       <div>
-        <Nav bsStyle="tabs" activeKey={1}>
+        <Nav bsStyle='tabs' activeKey={1}>
           <LinkContainer to={{ pathname: '/inbox' }}><NavItem eventKey={1}>Inbox</NavItem></LinkContainer>
-            <NavDropdown eventKey={4} title="Category" id="nav-dropdown">
-              <LinkContainer to={{ pathname: '/inbox/filter/question' }}><MenuItem eventKey="2.1">Questions</MenuItem></LinkContainer>
-              <LinkContainer to={{ pathname: '/inbox/filter/compliment' }}><MenuItem eventKey="2.4">Compliments</MenuItem></LinkContainer>
-              <LinkContainer to={{ pathname: '/inbox/filter/complaint' }}><MenuItem eventKey="2.4">Complaints</MenuItem></LinkContainer>
-              <LinkContainer to={{ pathname: '/inbox/filter/optout' }}><MenuItem eventKey="2.4">Optouts</MenuItem></LinkContainer>
+            <NavDropdown eventKey={4} title='Category' id='nav-dropdown'>
+              <LinkContainer to={{ pathname: '/inbox/filter/question' }}><MenuItem eventKey='2.1'>Questions</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/compliment' }}><MenuItem eventKey='2.4'>Compliments</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/complaint' }}><MenuItem eventKey='2.4'>Complaints</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/optout' }}><MenuItem eventKey='2.4'>Optouts</MenuItem></LinkContainer>
             </NavDropdown>
         </Nav>
         <Table responsive striped hover>
@@ -111,9 +111,3 @@ export default class MessageList extends Component {
 }
 
 export default connect(mapStateToProps, messageActions)(MessageList)
-// <form>
-//     <Input type="select" label="Filter by Category" onChange={this.switchCategory}>
-//       <option value="other">...</option>
-//       <option value="question">Question</option>
-//     </Input>
-// </form>
