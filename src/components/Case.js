@@ -116,10 +116,11 @@ export default class Case extends Component {
     )
     const replyForm = (
       <div>
-        <FaqModal showModal={false} />
+
         { replyBox }
       </div>
     )
+    // <FaqModal showModal={false} addReply={this.props.handleSave} closeSuccess={this.props.closeSuccess} />
 
     const addCategoriesForm = (
       <form>
