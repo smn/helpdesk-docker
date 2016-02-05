@@ -1,20 +1,34 @@
 import React, { Component, PropTypes } from 'react'
-import { Modal, Button } from 'react-bootstrap'
-import { FaqModalPicker } from './'
+import { connect } from 'react-redux'
+import { actions as faqActions } from '../redux/modules/faqs'
+import { actions as messageActions } from '../redux/modules/messages'
+import { Modal, Button, Accordion, Panel } from 'react-bootstrap'
+// import { FaqModalPicker } from './'
+
+const mapStateToProps = (state) => ({
+  categories: state.faqs.categories,
+  questions: state.faqs.questions,
+  results: state.faqs.results
+})
 
 class FaqModal extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      showModal: false,
-      body: 'categories'
+      showModal: false
     }
   }
-
-  componentDidMount () {
-    // from the path `/inbox/messages/:id`
-    // this.setState({ body: 'WOrd' })
-  }
+  static propTypes = {
+    categories: PropTypes.array.isRequired,
+    questions: PropTypes.object.isRequired,
+    results: PropTypes.array.isRequired,
+    messageId: PropTypes.number.isRequired,
+    showModal: PropTypes.func.isRequired,
+    addReply: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    children: PropTypes.object.isRequired,
+    closeSuccess: PropTypes.func.isRequired
+  };
 
   closeModal () {
     this.setState({ showModal: false })
@@ -24,14 +38,28 @@ class FaqModal extends Component {
     this.setState({ showModal: true })
   }
 
+  getQuestions (questions, qid) {
+    return questions[qid.toString()]
+  }
+
+  handleSetMessage (msg) {
+    this.props.addReply({id: this.props.messageId, text: msg})
+    this.closeModal()
+    setTimeout(() => this.props.closeSuccess(), 5000)
+  }
+
   render () {
-     // const { showModal, body } = this.props
-    let body
-    if (this.state.body === 'categories') {
-      body = <FaqModalPicker />
-    } else {
-      body = <h3>What up?</h3>
-    }
+    const questions = this.getQuestions(this.props.questions, 903)
+    const panels = questions.map(question =>
+      <Panel header={ question.question } key={ question.id } eventKey={ question.id.toString() }>
+        { question.answer }<br />
+      <Button onClick={() => this.handleSetMessage(question.answer)}>Use as response</Button>
+      </Panel>)
+    const body = (
+      <Accordion>
+        { panels }
+      </Accordion>
+    )
 
     return (
       <div>
@@ -41,8 +69,7 @@ class FaqModal extends Component {
         >
           Use approved response
         </Button></p>
-
-        <Modal show={this.state.showModal} onHide={() => this.closeModal()}>
+      <Modal show={this.state.showModal} onHide={() => this.closeModal()}>
           <Modal.Header>
             <Modal.Title>Browse FAQs</Modal.Title>
           </Modal.Header>
@@ -61,7 +88,14 @@ class FaqModal extends Component {
 
 FaqModal.propTypes = {
   showModal: PropTypes.bool.isRequired,
+  addReply: PropTypes.func.isRequired,
+  closeSuccess: PropTypes.func.isRequired,
+  messageId: PropTypes.number.isRequired,
   children: PropTypes.object.isRequired
 }
 
-export default FaqModal
+const messageAndFaqActions = Object.assign({}, messageActions, faqActions)
+
+export default connect(mapStateToProps, messageAndFaqActions)(FaqModal)
+
+// export default FaqModal

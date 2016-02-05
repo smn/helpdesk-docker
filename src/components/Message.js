@@ -50,6 +50,11 @@ export default class Message extends Component {
     }
   }
 
+  handleSetMessage (msg) {
+    this.props.addReply({id: this.messageId(), text: msg})
+    setTimeout(() => this.props.closeSuccess(), 5000)
+  }
+
   handleChange (e) {
     this.setState({ text: e.target.value })
   }
@@ -113,7 +118,7 @@ export default class Message extends Component {
     )
     const replyForm = (
       <div>
-        <FaqModal showModal={false} />
+        <FaqModal showModal={false} addReply={this.props.addReply} closeSuccess={this.props.closeSuccess} messageId={this.messageId()} />
         { replyBox }
       </div>
     )
@@ -140,7 +145,7 @@ export default class Message extends Component {
         <td>
           <p>{ reply.reply }</p>
           <strong>Sent: </strong>{ moment(reply.sent_at).format('dddd, MMMM Do YYYY, h:mm:ss a') } <br />
-          <strong>Sender: </strong>Yvou<br />
+          <strong>Sender: </strong>You<br />
         </td>
       </tr>
       )

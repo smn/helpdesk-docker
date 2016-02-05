@@ -9,7 +9,7 @@ export default class AugmentedDataPod extends Component {
   render () {
     const { data } = this.props
     const body = data.data.map(item =>
-      <ListGroupItem header={ Object.keys(item)[0] }>
+      <ListGroupItem key={ Object.keys(item)[0] } header={ Object.keys(item)[0] }>
         { item[Object.keys(item)[0]] }
       </ListGroupItem>
     )
