@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as messageActions } from '../redux/modules/messages'
 import { actions as caseActions } from '../redux/modules/cases'
-import { FaqModal } from './'
+import { FaqModal, AugmentedDataPod } from './'
 // import MessageReply from './'
 import { Table, Input, Button, Alert, Grid, Row, Col, Glyphicon, Tabs, Tab } from 'react-bootstrap'
 import moment from 'moment'
@@ -111,7 +111,7 @@ export default class Message extends Component {
         <td>
           <p>{ reply.reply }</p>
           <strong>Sent: </strong>{ moment(reply.sent_at).format('dddd, MMMM Do YYYY, h:mm:ss a') } <br />
-          <strong>Sender: </strong>You<br />
+          <strong>Sender: </strong>Yvou<br />
         </td>
       </tr>
       )
@@ -182,6 +182,7 @@ export default class Message extends Component {
               <Button onClick={() => this.handleDelete() }><Glyphicon glyph='trash' /> &nbsp;Delete</Button>
               <hr />
               <strong>Recieved: </strong>{ moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
+              <AugmentedDataPod data={{'title': 'MomConnect Information', 'data': message.data}} />
             </Col>
           </Row>
         </Grid>
