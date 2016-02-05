@@ -69,8 +69,7 @@ export default class Message extends Component {
   }
 
   render () {
-    const messages = this.props.messages.filter(x => x.id === this.messageId())
-    const hasMessages = messages.length > 0
+    const message = this.props.messages[this.messageId()]
     const replyBox = (
       <Input
         type='textarea'
@@ -107,94 +106,87 @@ export default class Message extends Component {
       </form>
     )
 
-    if (!hasMessages) {
-      return (
-          <h1>Message not found</h1>
-        )
-    } else {
-      const message = messages[0]
-      const replies = message.replies.map(reply =>
-        <tr key={reply.id}>
-          <td>
-            <p>{ reply.reply }</p>
-            <strong>Sent: </strong>{ moment(reply.sent_at).format('dddd, MMMM Do YYYY, h:mm:ss a') } <br />
-            <strong>Sender: </strong>You<br />
-          </td>
-        </tr>
-        )
-
-      const alertbox = this.props.alert
-        ? <Alert bsStyle='success'>
-            <strong>Success</strong> Your message has been sent.
-          </Alert>
-        : ''
-      return (
-        <div>
-
-          <Grid>
-            <Row>
-              <Col sm={12} md={12}>
-                <h1>Message from { message.from }</h1>
-                { alertbox }
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={8} md={8}>
-                <Table responsive striped >
-                  <thead>
-                    <tr>
-                      <th>Message</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr key={message.id}>
-                      <td>
-                        { message.message }
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
-                <Table responsive striped >
-                  <thead>
-                    <tr>
-                      <th>Responses</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    { replies }
-                    <tr>
-                      <td>
-                        <Tabs defaultActiveKey={1}>
-                          <Tab eventKey={1} title='Send a reply'>
-                              <br />
-                              { replyForm }
-                          </Tab>
-                          <Tab eventKey={2} title='Open a case'>
-                            <br />
-                            { newCaseForm }
-                          </Tab>
-                          <Tab eventKey={3} title='Add categories'>
-                            <br />
-                            { addCategoriesForm }
-                          </Tab>
-                        </Tabs>
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
-
-              </Col>
-              <Col sm={4} md={4}>
-                <Button onClick={() => this.handleArchive() }><Glyphicon glyph='download-alt' /> &nbsp;Archive</Button>{ ' ' }
-                <Button onClick={() => this.handleDelete() }><Glyphicon glyph='trash' /> &nbsp;Delete</Button>
-                <hr />
-                <strong>Recieved: </strong>{ moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
-              </Col>
-            </Row>
-          </Grid>
-        </div>
+    const replies = message.replies.map(reply =>
+      <tr key={reply.id}>
+        <td>
+          <p>{ reply.reply }</p>
+          <strong>Sent: </strong>{ moment(reply.sent_at).format('dddd, MMMM Do YYYY, h:mm:ss a') } <br />
+          <strong>Sender: </strong>You<br />
+        </td>
+      </tr>
       )
-    }
+
+    const alertbox = this.props.alert
+      ? <Alert bsStyle='success'>
+          <strong>Success</strong> Your message has been sent.
+        </Alert>
+      : ''
+    return (
+      <div>
+
+        <Grid>
+          <Row>
+            <Col sm={12} md={12}>
+              <h1>Message from { message.from }</h1>
+              { alertbox }
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={8} md={8}>
+              <Table responsive striped >
+                <thead>
+                  <tr>
+                    <th>Message</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr key={message.id}>
+                    <td>
+                      { message.message }
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+              <Table responsive striped >
+                <thead>
+                  <tr>
+                    <th>Responses</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  { replies }
+                  <tr>
+                    <td>
+                      <Tabs defaultActiveKey={1}>
+                        <Tab eventKey={1} title='Send a reply'>
+                            <br />
+                            { replyForm }
+                        </Tab>
+                        <Tab eventKey={2} title='Open a case'>
+                          <br />
+                          { newCaseForm }
+                        </Tab>
+                        <Tab eventKey={3} title='Add categories'>
+                          <br />
+                          { addCategoriesForm }
+                        </Tab>
+                      </Tabs>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+
+            </Col>
+            <Col sm={4} md={4}>
+              <Button onClick={() => this.handleArchive() }><Glyphicon glyph='download-alt' /> &nbsp;Archive</Button>{ ' ' }
+              <Button onClick={() => this.handleDelete() }><Glyphicon glyph='trash' /> &nbsp;Delete</Button>
+              <hr />
+              <strong>Recieved: </strong>{ moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
+            </Col>
+          </Row>
+        </Grid>
+      </div>
+    )
   }
 }
 

@@ -7,32 +7,34 @@ import { Table } from 'react-bootstrap'
 const mapStateToProps = (state) => ({
   messages: state.messages.messages,
   messages_archived: state.messages.messages_archived,
-  messages_deleted: state.messages.messages_deleted,
+  messages_inbox: state.messages.messages_inbox,
   inboxstage: state.messages.inboxstage
 })
 
 export default class MessageList extends Component {
   static propTypes = {
-    messages: PropTypes.array.isRequired,
-    messages_deleted: PropTypes.array.isRequired,
+    messages: PropTypes.object.isRequired,
     messages_archived: PropTypes.array.isRequired,
+    messages_inbox: PropTypes.array.isRequired,
     deleteMessage: PropTypes.func.isRequired,
     archiveMessage: PropTypes.func.isRequired,
     unarchiveMessage: PropTypes.func.isRequired,
     loadMessages: PropTypes.func.isRequired,
+    setView: PropTypes.func.isRequired,
     params: PropTypes.object.isRequired,
     children: PropTypes.object.isRequired
   };
 
   componentDidMount () {
     // this.props.loadMessages()
+
   }
 
   getMessages (filter) {
-    if (filter === 'archive') {
+    if (filter === 'archived') {
       return this.props.messages_archived
     } else {
-      return this.props.messages
+      return this.props.messages_inbox
     }
   }
 
@@ -44,11 +46,8 @@ export default class MessageList extends Component {
       ? <tr><td>There are current no messages in this view.</td></tr>
     : messages.map(message =>
         <MessageListItem
-          key={message.id}
-          id={message.id}
-          received_at_nice={message.received_at_nice}
-          from={message.from}
-          message={message.message}
+          key={message}
+          message={this.props.messages[message]}
           filter={filter}
           onMessageDeleteClicked={this.props.deleteMessage}
           onMessageArchiveClicked={this.props.archiveMessage}

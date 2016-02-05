@@ -15,11 +15,17 @@ const mapStateToProps = (state) => ({
   inboxstage: state.messages.inboxstage
 })
 export class InboxView extends Component {
-    static propTypes = {
-      messages: PropTypes.array.isRequired,
-      inboxstage: PropTypes.number.isRequired,
-      children: PropTypes.object.isRequired
-    };
+  static propTypes = {
+    messages: PropTypes.object.isRequired,
+    loadMessages: PropTypes.func.isRequired,
+    inboxstage: PropTypes.number.isRequired,
+    children: PropTypes.object.isRequired
+  };
+
+  componentDidMount () {
+    this.props.loadMessages()
+  }
+
   render () {
     switch (this.props.inboxstage) {
       case 1:

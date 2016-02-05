@@ -28,7 +28,7 @@ export class MessageView extends Component {
       default:
         return (
           <div>
-            <Header messages={this.props.messages} />
+            <Header messages_inbox={this.props.messages_inbox} />
             <Grid>
               <Row>
                 <Col sm={12} md={12}>
