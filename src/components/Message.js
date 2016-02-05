@@ -26,7 +26,9 @@ export default class Message extends Component {
     alert: PropTypes.bool.isRequired,
     messageOpen: PropTypes.func.isRequired,
     deleteMessage: PropTypes.func.isRequired,
-    archiveMessage: PropTypes.func.isRequired
+    archiveMessage: PropTypes.func.isRequired,
+    addCase: PropTypes.func.isRequired,
+    markAsCase: PropTypes.func.isRequired
   };
 
   messageId () {
@@ -68,6 +70,29 @@ export default class Message extends Component {
     this.props.history.push('/inbox')
   }
 
+  handleCaseSubmit (e) {
+    const text = e.target.value.trim()
+    if (e.which === 13) {
+      this.handleCaseSave(text)
+      e.target.value = ''
+      this.setState({ case_text: '' })
+      e.target.blur()
+    }
+  }
+
+  handleCaseChange (e) {
+    this.setState({ case_text: e.target.value })
+  }
+
+  handleCaseSave (case_text) {
+    if (case_text.length !== 0) {
+      const caseId = Date.now()
+      this.props.addCase({id: caseId, subject: case_text, from: this.props.messages[this.messageId()].from, messages: [this.messageId()], data: this.props.messages[this.messageId()].data})
+      this.props.markAsCase(this.messageId())
+      this.props.history.push('/cases')
+    }
+  }
+
   render () {
     const message = this.props.messages[this.messageId()]
     const replyBox = (
@@ -89,9 +114,9 @@ export default class Message extends Component {
 
     const newCaseForm = (
       <form>
-        <Input type='text' label='Case subject'
-          placeholder='Enter a short description/summary for the case. Press enter to create the case.'
-        />
+        <Input type='text' label='Case subject' placeholder='Enter a short description/summary for the case. Press enter to create the case.'
+          onChange={this.handleCaseChange.bind(this)}
+          onKeyDown={this.handleCaseSubmit.bind(this)} />
       </form>
     )
 

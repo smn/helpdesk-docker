@@ -7,18 +7,19 @@ import moment from 'moment'
 // ------------------------------------
 
 export const initialState = {
-  'case_open': {},
+  'cases': {
+    1454665923921: {
+      'id': 1454665923921,
+      'opened_at': '2016-02-05T09:52:03.922Z',
+      'subject': 'New case from the region',
+      'from': '+27845000001',
+      'messages': [10],
+      'data': [{'Clinic Code': '343242'}, {'Language': 'en'}, {'Registered': 'Yes'}]
+    }
+  },
+  'cases_open': [1454665923921],
   'cases_deleted': [],
   'cases_archived': [],
-  'cases': [
-    {
-      'id': 1,
-      'opened_at': '2016-01-22 20:10',
-      'subject': 'Needs nurse follow-up',
-      'from': '+27845000001',
-      'messages': [1]
-    }
-  ],
   received_at: null
 }
 
@@ -29,6 +30,7 @@ export const DELETECASE = 'DELETECASE'
 export const ARCHIVECASE = 'ARCHIVECASE'
 export const LOADCASES = 'LOADCASES'
 export const ADDCASE = 'ADDCASE'
+export const ADDMESSAGETOCASE = 'ADDMESSAGETOCASE'
 
 // ------------------------------------
 // Actions
@@ -37,12 +39,14 @@ export const deleteCase = createAction(DELETECASE)
 export const archiveCase = createAction(ARCHIVECASE)
 export const loadCases = createAction(LOADCASES)
 export const addCase = createAction(ADDCASE)
+export const addMessageToCase = createAction(ADDMESSAGETOCASE)
 
 export const actions = {
   deleteCase,
   archiveCase,
   loadCases,
-  addCase
+  addCase,
+  addMessageToCase
 }
 
 // ------------------------------------
@@ -50,7 +54,12 @@ export const actions = {
 // ------------------------------------
 
 const pushCase = (cases, payload) => {
-  cases.push({id: Date.now(), opened_at: moment().toJSON(), subject: payload.subject, from: payload.from, messages: payload.messages})
+  cases[payload.id] = {id: payload.id, opened_at: moment().toJSON(), subject: payload.subject, from: payload.from, messages: payload.messages, data: payload.data}
+  return cases
+}
+
+const addMessage = (cases, payload) => {
+  cases[payload.caseId].messages.push(payload.messageId)
   return cases
 }
 
@@ -67,6 +76,10 @@ export default handleActions({
     received_at: Date.now()
   })),
   ADDCASE: (state, { payload }) => (Object.assign({}, state, {
-    cases: pushCase(state.cases, payload)
+    cases: pushCase(state.cases, payload),
+    cases_open: Object.assign([], state.cases_open, state.cases_open.push(payload.id))
+  })),
+  ADDMESSAGETOCASE: (state, { payload }) => (Object.assign({}, state, {
+    cases: addMessage(state.cases, payload)
   }))
 }, initialState)

@@ -45,7 +45,7 @@ export const initialState = {
     },
     10: {'id': 10, 'received_at_nice': '2 days ago at 11:03', 'received_at': '2016-01-20 11:03', 'from': '+27845000047',
       'message': 'When will I start feeling the baby moving?',
-      'replies': [], case: null, archived: false, deleted: false, categories: [], data: [{'Clinic Code': '343242'}, {'Language': 'en'}, {'Registered': 'Yes'}]
+      'replies': [], case: 1454665923921, archived: false, deleted: false, categories: [], data: [{'Clinic Code': '343242'}, {'Language': 'en'}, {'Registered': 'Yes'}]
     },
     11: {'id': 11, 'received_at_nice': '2 days ago at 09:03', 'received_at': '2016-01-20 09:03', 'from': '+27845000099',
       'message': 'i havnt felt my baby move for 2 days. Wat shld i do?',
@@ -64,6 +64,7 @@ export const initialState = {
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const ADDMESSAGE = 'ADDMESSAGE'
 export const DELETEMESSAGE = 'DELETEMESSAGE'
 export const ARCHIVEMESSAGE = 'ARCHIVEMESSAGE'
 export const UNARCHIVEMESSAGE = 'UNARCHIVEMESSAGE'
@@ -77,6 +78,7 @@ export const SETVIEW = 'SETVIEW'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export const addMessage = createAction(ADDMESSAGE)
 export const deleteMessage = createAction(DELETEMESSAGE)
 export const archiveMessage = createAction(ARCHIVEMESSAGE)
 export const unarchiveMessage = createAction(UNARCHIVEMESSAGE)
@@ -88,6 +90,7 @@ export const messageOpen = createAction(MESSAGEOPEN)
 export const setView = createAction(SETVIEW)
 
 export const actions = {
+  addMessage,
   deleteMessage,
   archiveMessage,
   unarchiveMessage,
@@ -112,7 +115,9 @@ const fillInbox = (messages) => {
   let response = []
   const ids = Object.keys(messages)
   ids.forEach(function (e, i) {
-    response.push(parseInt(e, 10))
+    if (messages[e].case === null) {
+      response.push(parseInt(e, 10))
+    }
   })
   return response
 }
@@ -122,7 +127,17 @@ const toggleFlag = (messages, payload, flag) => {
   return messages
 }
 
+const addNew = (messages, payload) => {
+  messages[payload.id] = payload
+  return messages
+}
+
 export default handleActions({
+  ADDMESSAGE: (state, { payload }) => (Object.assign({}, state, {
+    messages: Object.assign({}, addNew(state.messages, payload)),
+    messages_inbox: fillInbox(state.messages),
+    sent: true
+  })),
   DELETEMESSAGE: (state, { payload }) => (Object.assign({}, state, {
     messages: toggleFlag(state.messages, payload, 'deleted'),
     messages_deleted: Object.assign([], state.messages_deleted, state.messages_deleted.push(payload)),

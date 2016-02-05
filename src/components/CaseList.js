@@ -6,13 +6,15 @@ import { Table } from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
   cases: state.cases.cases,
+  cases_open: state.cases.cases_open,
   cases_archived: state.cases.cases_archived,
   cases_deleted: state.cases.cases_deleted
 })
 
 export default class CaseList extends Component {
   static propTypes = {
-    cases: PropTypes.array.isRequired,
+    cases: PropTypes.object.isRequired,
+    cases_open: PropTypes.array.isRequired,
     cases_archived: PropTypes.array.isRequired,
     cases_deleted: PropTypes.array.isRequired,
     deleteCase: PropTypes.func.isRequired,
@@ -23,26 +25,25 @@ export default class CaseList extends Component {
   };
 
   getCases (filter) {
-    if (filter === 'archive') {
+    if (filter === 'archived') {
       return this.props.cases_archived
     } else {
-      return this.props.cases
+      return this.props.cases_open
     }
   }
 
   render () {
+    console.log(this.props.cases_open)
     const filter = this.props.params.filter
     const cases = this.getCases(filter)
+    console.log(cases)
     const hasCases = cases.length > 0
     const nodes = !hasCases
       ? <tr><td>There are current no cases in this view.</td></tr>
     : cases.map(caseobj =>
           <CaseListItem
-            key={caseobj.id}
-            id={caseobj.id}
-            opened_at={caseobj.opened_at}
-            from={caseobj.from}
-            subject={caseobj.subject}
+            key={caseobj}
+            caseobj={this.props.cases[caseobj]}
             onCaseDeleteClicked={this.props.deleteCase}
             onCaseArchiveClicked={this.props.archiveCase} />
         )

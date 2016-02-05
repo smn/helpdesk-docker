@@ -5,23 +5,20 @@ import moment from 'moment'
 
 export default class CaseListItem extends Component {
   static propTypes = {
-    id: PropTypes.number.isRequired,
-    opened_at: PropTypes.string.isRequired,
-    from: PropTypes.string.isRequired,
-    subject: PropTypes.string.isRequired,
+    caseobj: PropTypes.object.isRequired,
     onCaseDeleteClicked: PropTypes.func.isRequired,
     onCaseArchiveClicked: PropTypes.func.isRequired
   };
   render () {
-    const { id, opened_at, from, subject, onCaseDeleteClicked, onCaseArchiveClicked } = this.props
+    const { caseobj, onCaseDeleteClicked, onCaseArchiveClicked } = this.props
     return (
       <tr>
-        <td>{ moment(opened_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }</td>
-        <td>{ from }</td>
-        <td><Link to={`/cases/case/${id}`}>{ subject }</Link></td>
+        <td>{ moment(caseobj.opened_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }</td>
+        <td>{ caseobj.from }</td>
+        <td><Link to={`/cases/case/${caseobj.id}`}>{ caseobj.subject }</Link></td>
         <td>
-          <Button onClick={() => onCaseDeleteClicked(id)}><Glyphicon glyph='envelope' /></Button>
-          <Button onClick={() => onCaseArchiveClicked(id)}><Glyphicon glyph='download-alt' /></Button>
+          <Button onClick={() => onCaseDeleteClicked(caseobj.id)}><Glyphicon glyph='envelope' /></Button>
+          <Button onClick={() => onCaseArchiveClicked(caseobj.id)}><Glyphicon glyph='download-alt' /></Button>
         </td>
       </tr>
     )

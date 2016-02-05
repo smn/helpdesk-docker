@@ -23,7 +23,7 @@ export default class MessageListItem extends Component {
       actions = (
         <div>
           <Link to={`/inbox/message/${message.id}`} title='Open Message'><Button><Glyphicon glyph='envelope' /></Button></Link>{ ' ' }
-          <Link to={`/cases/create/${message.id}`} title='Open Case'><Button><Glyphicon glyph='folder-open' /></Button></Link>{ ' ' }
+          <Link to={`/inbox/message/${message.id}`} title='Open Case'><Button><Glyphicon glyph='folder-open' /></Button></Link>{ ' ' }
           <Button onClick={() => onMessageArchiveClicked(message.id)} title='Archive'><Glyphicon glyph='save' /></Button>{ ' ' }
           <Button onClick={() => onMessageDeleteClicked(message.id)} title='Delete'><Glyphicon glyph='trash' /></Button>
         </div>

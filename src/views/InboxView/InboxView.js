@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as messageActions } from '../../redux/modules/messages'
+import { actions as caseActions } from '../../redux/modules/cases'
 import { MessageList, Header } from '../../components'
 import { Grid, Row, Col } from 'react-bootstrap'
 
@@ -11,12 +12,14 @@ import { Grid, Row, Col } from 'react-bootstrap'
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 
 const mapStateToProps = (state) => ({
-  messages: state.messages.messages,
+  messages_inbox: state.messages.messages_inbox,
+  cases_open: state.cases.cases_open,
   inboxstage: state.messages.inboxstage
 })
 export class InboxView extends Component {
   static propTypes = {
-    messages: PropTypes.object.isRequired,
+    messages_inbox: PropTypes.array.isRequired,
+    cases_open: PropTypes.array.isRequired,
     loadMessages: PropTypes.func.isRequired,
     inboxstage: PropTypes.number.isRequired,
     children: PropTypes.object.isRequired
@@ -53,4 +56,6 @@ export class InboxView extends Component {
   }
 }
 
-export default connect(mapStateToProps, messageActions)(InboxView)
+const messageAndCaseActions = Object.assign({}, messageActions, caseActions)
+
+export default connect(mapStateToProps, messageAndCaseActions)(InboxView)

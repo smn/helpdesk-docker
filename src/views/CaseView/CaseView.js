@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { actions as messageActions } from '../../redux/modules/messages'
 import { actions as caseActions } from '../../redux/modules/cases'
 import { Header } from '../../components'
 import { Grid, Row, Col } from 'react-bootstrap'
@@ -11,11 +12,13 @@ import { Grid, Row, Col } from 'react-bootstrap'
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 
 const mapStateToProps = (state) => ({
-  cases: state.cases.cases
+  messages_inbox: state.messages.messages_inbox,
+  cases_open: state.cases.cases_open
 })
 export class CaseView extends Component {
     static propTypes = {
-      cases: PropTypes.array.isRequired,
+      messages_inbox: PropTypes.array.isRequired,
+      cases_open: PropTypes.array.isRequired,
       children: PropTypes.object.isRequired
     };
   render () {
@@ -37,4 +40,6 @@ export class CaseView extends Component {
   }
 }
 
-export default connect(mapStateToProps, caseActions)(CaseView)
+const messageAndCaseActions = Object.assign({}, messageActions, caseActions)
+
+export default connect(mapStateToProps, messageAndCaseActions)(CaseView)

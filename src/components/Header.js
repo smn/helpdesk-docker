@@ -5,15 +5,15 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 const mapStateToProps = (state) => ({
   messages_inbox: state.messages.messages_inbox,
-  cases: state.cases.cases
+  cases_open: state.cases.cases_open
 })
 export default class Header extends Component {
   static propTypes = {
-    messages_inbox: PropTypes.object.isRequired,
-    cases: PropTypes.array.isRequired
+    messages_inbox: PropTypes.array.isRequired,
+    cases_open: PropTypes.array.isRequired
   };
   render () {
-    const { messages_inbox, cases } = this.props
+    const { messages_inbox, cases_open } = this.props
 
     return (
       <Navbar inverse>
@@ -29,7 +29,7 @@ export default class Header extends Component {
               <NavItem eventKey={1}>Inbox <Badge>{ messages_inbox.length }</Badge></NavItem>
             </LinkContainer>
             <LinkContainer to={{ pathname: '/cases' }}>
-              <NavItem eventKey={2}>Cases <Badge>{ cases.length }</Badge></NavItem>
+              <NavItem eventKey={2}>Cases <Badge>{ cases_open.length }</Badge></NavItem>
             </LinkContainer>
             <LinkContainer to={{ pathname: '/inbox/filter/archived' }}>
               <NavItem eventKey={3}>Archive</NavItem>
