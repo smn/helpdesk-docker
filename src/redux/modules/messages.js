@@ -74,6 +74,7 @@ export const CLOSESUCCESS = 'CLOSESUCCESS'
 export const MARKASCASE = 'MARKASCASE'
 export const MESSAGEOPEN = 'MESSAGEOPEN'
 export const SETVIEW = 'SETVIEW'
+export const ADDCATEGORY = 'ADDCATEGORY'
 
 // ------------------------------------
 // Actions
@@ -88,6 +89,7 @@ export const closeSuccess = createAction(CLOSESUCCESS)
 export const markAsCase = createAction(MARKASCASE)
 export const messageOpen = createAction(MESSAGEOPEN)
 export const setView = createAction(SETVIEW)
+export const addCategory = createAction(ADDCATEGORY)
 
 export const actions = {
   addMessage,
@@ -99,7 +101,8 @@ export const actions = {
   closeSuccess,
   markAsCase,
   messageOpen,
-  setView
+  setView,
+  addCategory
 }
 
 // ------------------------------------
@@ -108,6 +111,11 @@ export const actions = {
 
 const pushReply = (messages, payload) => {
   messages[payload.id].replies.push({id: Date.now(), sent_at: moment().toJSON(), reply: payload.text})
+  return messages
+}
+
+const pushCategory = (messages, payload) => {
+  messages[payload.id].categories.push(payload.category)
   return messages
 }
 
@@ -171,5 +179,9 @@ export default handleActions({
   })),
   SETVIEW: (state, { payload }) => (Object.assign({}, state, {
     message_view: payload
+  })),
+  ADDCATEGORY: (state, { payload }) => (Object.assign({}, state, {
+    messages: pushCategory(state.messages, payload),
+    sent: true
   }))
 }, initialState)

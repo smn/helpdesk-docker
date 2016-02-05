@@ -28,7 +28,8 @@ export default class Message extends Component {
     deleteMessage: PropTypes.func.isRequired,
     archiveMessage: PropTypes.func.isRequired,
     addCase: PropTypes.func.isRequired,
-    markAsCase: PropTypes.func.isRequired
+    markAsCase: PropTypes.func.isRequired,
+    addCategory: PropTypes.func.isRequired
   };
 
   messageId () {
@@ -93,6 +94,11 @@ export default class Message extends Component {
     }
   }
 
+  onAddCategoryButtonClicked (category) {
+    this.props.addCategory({'id': this.messageId(), 'category': category})
+    setTimeout(() => this.props.closeSuccess(), 5000)
+  }
+
   render () {
     const message = this.props.messages[this.messageId()]
     const replyBox = (
@@ -121,14 +127,12 @@ export default class Message extends Component {
     )
 
     const addCategoriesForm = (
-      <form>
-        <Input type='select' label='Add categories to message (hold ctrl/cmd key for multiple)' multiple>
-          <option value='compliment'>compliment</option>
-          <option value='complaint'>complaint</option>
-          <option value='question'>question</option>
-          <option value='optout'>optout</option>
-        </Input>
-      </form>
+      <div>
+        <Button onClick={() => this.onAddCategoryButtonClicked('compliment')} title='Compliment'><Glyphicon glyph='plus' /></Button> Compliment<br />
+        <Button onClick={() => this.onAddCategoryButtonClicked('complaint')} title='Complaint'><Glyphicon glyph='plus' /></Button> Complaint<br />
+        <Button onClick={() => this.onAddCategoryButtonClicked('question')} title='Question'><Glyphicon glyph='plus' /></Button> Question<br />
+        <Button onClick={() => this.onAddCategoryButtonClicked('optout')} title='Optout'><Glyphicon glyph='plus' /></Button> Optout
+      </div>
     )
 
     const replies = message.replies.map(reply =>
@@ -143,7 +147,7 @@ export default class Message extends Component {
 
     const alertbox = this.props.alert
       ? <Alert bsStyle='success'>
-          <strong>Success</strong> Your message has been sent.
+          <strong>Success!</strong>
         </Alert>
       : ''
     return (
@@ -206,7 +210,7 @@ export default class Message extends Component {
               <Button onClick={() => this.handleArchive() }><Glyphicon glyph='download-alt' /> &nbsp;Archive</Button>{ ' ' }
               <Button onClick={() => this.handleDelete() }><Glyphicon glyph='trash' /> &nbsp;Delete</Button>
               <hr />
-              <strong>Recieved: </strong>{ moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
+              <AugmentedDataPod data={{'title': 'Message Information', 'data': [{'Recieved': moment(message.received_at).format('dddd, MMMM Do YYYY, h:mm:ss a')}, {'Categories': message.categories}]}} />
               <AugmentedDataPod data={{'title': 'MomConnect Information', 'data': message.data}} />
             </Col>
           </Row>
