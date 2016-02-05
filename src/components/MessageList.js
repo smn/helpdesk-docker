@@ -72,6 +72,22 @@ export default class MessageList extends Component {
     }
   }
 
+  makeHeader (filter) {
+    if (filter === 'archived') {
+      return <h3>Archive</h3>
+    } else {
+      return (<Nav bsStyle='tabs' activeKey={1}>
+        <LinkContainer to={{ pathname: '/inbox' }}><NavItem eventKey={1}>Inbox</NavItem></LinkContainer>
+          <NavDropdown eventKey={4} title='Category' id='nav-dropdown'>
+            <LinkContainer to={{ pathname: '/inbox/filter/question' }}><MenuItem eventKey='2.1'>Questions</MenuItem></LinkContainer>
+            <LinkContainer to={{ pathname: '/inbox/filter/compliment' }}><MenuItem eventKey='2.4'>Compliments</MenuItem></LinkContainer>
+            <LinkContainer to={{ pathname: '/inbox/filter/complaint' }}><MenuItem eventKey='2.4'>Complaints</MenuItem></LinkContainer>
+            <LinkContainer to={{ pathname: '/inbox/filter/optout' }}><MenuItem eventKey='2.4'>Optouts</MenuItem></LinkContainer>
+          </NavDropdown>
+      </Nav>)
+    }
+  }
+
   render () {
     const filter = this.props.params.filter
     const messages = this.getMessages(filter)
@@ -88,17 +104,11 @@ export default class MessageList extends Component {
           onMessageUnarchiveClicked={this.props.unarchiveMessage} />
       )
 
+    const pageheader = this.makeHeader(filter)
+
     return (
       <div>
-        <Nav bsStyle='tabs' activeKey={1}>
-          <LinkContainer to={{ pathname: '/inbox' }}><NavItem eventKey={1}>Inbox</NavItem></LinkContainer>
-            <NavDropdown eventKey={4} title='Category' id='nav-dropdown'>
-              <LinkContainer to={{ pathname: '/inbox/filter/question' }}><MenuItem eventKey='2.1'>Questions</MenuItem></LinkContainer>
-              <LinkContainer to={{ pathname: '/inbox/filter/compliment' }}><MenuItem eventKey='2.4'>Compliments</MenuItem></LinkContainer>
-              <LinkContainer to={{ pathname: '/inbox/filter/complaint' }}><MenuItem eventKey='2.4'>Complaints</MenuItem></LinkContainer>
-              <LinkContainer to={{ pathname: '/inbox/filter/optout' }}><MenuItem eventKey='2.4'>Optouts</MenuItem></LinkContainer>
-            </NavDropdown>
-        </Nav>
+        { pageheader }
         <Table responsive striped hover>
           <tbody>
            { nodes }

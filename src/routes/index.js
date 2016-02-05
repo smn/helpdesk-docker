@@ -12,6 +12,7 @@ import LoginView from 'views/LoginView/LoginView'
 import InboxView from 'views/InboxView/InboxView'
 import CaseView from 'views/CaseView/CaseView'
 import FaqView from 'views/FaqView/FaqView'
+import DiscussionView from 'views/DiscussionView/DiscussionView'
 import { MessageList, Message, CaseList, Case, CaseCreate, FaqCategoryList, FaqCategory } from 'components/'
 import NotFoundView from 'views/NotFoundView/NotFoundView'
 
@@ -19,6 +20,7 @@ export default (
   <Route path='/' component={CoreLayout}>
     <IndexRoute component={HomeView} />
     <Route path='login' component={LoginView} />
+    <Route path='discussion' component={DiscussionView} />
     <Route path='inbox' component={InboxView}>
       <IndexRoute component={MessageList}/>
       <Route path='message/:id' component={Message}/>
