@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
 import { Glyphicon, Button } from 'react-bootstrap'
 import moment from 'moment'
 

@@ -45,8 +45,6 @@ export default class DiscussionList extends Component {
     }
   }
 
-
-
   render () {
     const hasMessages = Object.keys(this.props.internalmessages).length > 0
     const header = !hasMessages
