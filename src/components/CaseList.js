@@ -43,9 +43,7 @@ export default class CaseList extends Component {
     : cases.map(caseobj =>
           <CaseListItem
             key={caseobj}
-            caseobj={this.props.cases[caseobj]}
-            onCaseDeleteClicked={this.props.deleteCase}
-            onCaseArchiveClicked={this.props.archiveCase} />
+            caseobj={this.props.cases[caseobj]} />
         )
 
     return (

@@ -4,7 +4,7 @@ import { actions as messageActions } from '../redux/modules/messages'
 import { actions as caseActions } from '../redux/modules/cases'
 import { AugmentedDataPod } from './'
 // import MessageReply from './'
-import { Table, Input, Button, Alert, Grid, Row, Col, Glyphicon, Tabs, Tab } from 'react-bootstrap'
+import { Table, Input, Alert, Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import moment from 'moment'
 
 const mapStateToProps = (state) => ({
@@ -187,9 +187,7 @@ export default class Case extends Component {
 
             </Col>
             <Col sm={4} md={4}>
-              <Button onClick={() => this.handleArchiveCase() }><Glyphicon glyph='download-alt' /> &nbsp;Archive</Button>
-              <hr />
-              <strong>Opened At: </strong>{ moment(caseobj.opened_at).format('dddd, MMMM Do YYYY, h:mm:ss a') }
+              <AugmentedDataPod data={{'title': 'Case Information', 'data': [{'Opened At': moment(caseobj.opened_at).format('dddd, MMMM Do YYYY, h:mm:ss a')}]}} />
               <AugmentedDataPod data={{'title': 'MomConnect Information', 'data': caseobj.data}} />
             </Col>
           </Row>
