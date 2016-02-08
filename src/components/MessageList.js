@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { actions as messageActions } from '../redux/modules/messages'
 import { MessageListItem } from './'
-import { Table, Nav, NavDropdown, NavItem, MenuItem } from 'react-bootstrap'
+import { Table, Nav, NavDropdown, NavItem, MenuItem, Button, Glyphicon, Input, Collapse, Well } from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
   messages: state.messages.messages,
@@ -13,6 +13,14 @@ const mapStateToProps = (state) => ({
 })
 
 export default class MessageList extends Component {
+  constructor (props, context) {
+    super(props, context)
+    this.state = {
+      showSearch: false,
+      target: null
+    }
+  }
+
   static propTypes = {
     filter: PropTypes.string,
     messages: PropTypes.object.isRequired,
@@ -30,6 +38,10 @@ export default class MessageList extends Component {
   componentDidMount () {
     // this.props.loadMessages()
 
+  }
+
+  openSearch (e) {
+    this.setState({ target: e.target, showSearch: !this.state.showSearch })
   }
 
   getMessages (filter) {
@@ -76,15 +88,33 @@ export default class MessageList extends Component {
     if (filter === 'archived') {
       return <h3>Archive</h3>
     } else {
-      return (<Nav bsStyle='tabs' activeKey={1}>
-        <LinkContainer to={{ pathname: '/inbox' }}><NavItem eventKey={1}>Inbox</NavItem></LinkContainer>
-          <NavDropdown eventKey={4} title='Category' id='nav-dropdown'>
-            <LinkContainer to={{ pathname: '/inbox/filter/question' }}><MenuItem eventKey='2.1'>Questions</MenuItem></LinkContainer>
-            <LinkContainer to={{ pathname: '/inbox/filter/compliment' }}><MenuItem eventKey='2.4'>Compliments</MenuItem></LinkContainer>
-            <LinkContainer to={{ pathname: '/inbox/filter/complaint' }}><MenuItem eventKey='2.4'>Complaints</MenuItem></LinkContainer>
-            <LinkContainer to={{ pathname: '/inbox/filter/optout' }}><MenuItem eventKey='2.4'>Optouts</MenuItem></LinkContainer>
-          </NavDropdown>
-      </Nav>)
+      return (
+      <div>
+        <Nav bsStyle='tabs' activeKey={1}>
+          <LinkContainer to={{ pathname: '/inbox' }}><NavItem eventKey={1}>Inbox</NavItem></LinkContainer>
+            <NavDropdown eventKey={4} title='Category' id='nav-dropdown'>
+              <LinkContainer to={{ pathname: '/inbox/filter/question' }}><MenuItem eventKey='2.1'>Questions</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/compliment' }}><MenuItem eventKey='2.4'>Compliments</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/complaint' }}><MenuItem eventKey='2.4'>Complaints</MenuItem></LinkContainer>
+              <LinkContainer to={{ pathname: '/inbox/filter/optout' }}><MenuItem eventKey='2.4'>Optouts</MenuItem></LinkContainer>
+            </NavDropdown>
+            <NavItem eventKey={3}><Button bsStyle='default' onClick={this.openSearch.bind(this)}><Glyphicon glyph='search' /> Search</Button></NavItem>
+        </Nav>
+        <Collapse in={this.state.showSearch}>
+          <div>
+            <Well>
+              <form>
+                  <Input type='text' label='From' placeholder='Enter cellphone' />
+                  <Input type='text' label='Contains text' placeholder='Enter search term to look for' />
+                  <Input type='text' label='Start date' placeholder='Date to start from' />
+                  <Input type='text' label='End date' placeholder='Date to search up to' />
+                  <Button bsStyle='primary'>Search</Button>
+              </form>
+            </Well>
+          </div>
+        </Collapse>
+      </div>
+    )
     }
   }
 
