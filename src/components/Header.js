@@ -19,7 +19,7 @@ export default class Header extends Component {
       <Navbar inverse>
         <Navbar.Header>
           <Navbar.Brand>
-            <a className='navbar-brand' style={{ paddingTop: 2 + 'px' }} href='/'>Helpdesk</a> <Label>v0.1.17</Label>
+            <a className='navbar-brand' style={{ paddingTop: 2 + 'px' }} href='/'>Helpdesk</a> <Label>v0.1.18</Label>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

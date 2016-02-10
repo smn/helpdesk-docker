@@ -13,7 +13,8 @@ import InboxView from 'views/InboxView/InboxView'
 import CaseView from 'views/CaseView/CaseView'
 import FaqView from 'views/FaqView/FaqView'
 import DiscussionView from 'views/DiscussionView/DiscussionView'
-import { MessageList, Message, CaseList, Case, CaseCreate, FaqCategoryList, FaqCategory } from 'components/'
+import AdminView from 'views/AdminView/AdminView'
+import { MessageList, Message, CaseList, Case, CaseCreate, FaqCategoryList, FaqCategory, AdminChooser, AdminUserList } from 'components/'
 import NotFoundView from 'views/NotFoundView/NotFoundView'
 
 export default (
@@ -35,6 +36,10 @@ export default (
     <Route path='faqs' component={FaqView}>
       <IndexRoute component={FaqCategoryList}/>
       <Route path='category/:id' component={FaqCategory}/>
+    </Route>
+    <Route path='admin' component={AdminView}>
+      <IndexRoute component={AdminChooser}/>
+      <Route path='users' component={AdminUserList}/>
     </Route>
     <Route path='/404' component={NotFoundView} />
     <Redirect from='*' to='/404' />

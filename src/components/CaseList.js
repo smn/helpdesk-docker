@@ -33,10 +33,8 @@ export default class CaseList extends Component {
   }
 
   render () {
-    console.log(this.props.cases_open)
     const filter = this.props.params.filter
     const cases = this.getCases(filter)
-    console.log(cases)
     const hasCases = cases.length > 0
     const nodes = !hasCases
       ? <tr><td>There are current no cases in this view.</td></tr>

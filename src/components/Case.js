@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as messageActions } from '../redux/modules/messages'
 import { actions as caseActions } from '../redux/modules/cases'
+import { actions as accountActions } from '../redux/modules/account'
 import { AugmentedDataPod } from './'
 // import MessageReply from './'
 import { Table, Input, Alert, Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
@@ -197,8 +198,8 @@ export default class Case extends Component {
   }
 }
 
-const messageAndCaseActions = Object.assign({}, messageActions, caseActions)
+const allActions = Object.assign({}, messageActions, caseActions, accountActions)
 
-export default connect(mapStateToProps, messageAndCaseActions)(Case)
+export default connect(mapStateToProps, allActions)(Case)
 
         // <ButtonInput bsStyle='primary' type='submit' value='Reply' onClick={this.handleReplyClick.bind(this)} />

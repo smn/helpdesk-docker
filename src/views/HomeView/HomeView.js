@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { actions as accountActions } from '../../redux/modules/account'
+import { Grid, Row, Col, Button } from 'react-bootstrap'
 
 // We define mapStateToProps where we'd normally use
 // the @connect decorator so the data requirements are clear upfront, but then
@@ -10,8 +10,20 @@ import { Grid, Row, Col } from 'react-bootstrap'
 // See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
 const mapStateToProps = (state) => ({})
 
-export class HomeView extends React.Component {
-  static propTypes = {};
+export class HomeView extends Component {
+  static propTypes = {
+    setUserRole: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
+  handleSetUserRole (role) {
+    this.props.setUserRole(role)
+    if (role === 'admin') {
+      this.props.history.push('/admin')
+    } else {
+      this.props.history.push('/login')
+    }
+  }
 
   render () {
     return (
@@ -21,9 +33,9 @@ export class HomeView extends React.Component {
             <div>
                 <h2>Welcome to the helpdesk prototype</h2>
                 <ul>
-                  <li><Link to='/login'>Login as Senior Operator (full access)</Link></li>
-                  <li>Login as Junior Operator (restricted access)</li>
-                  <li>Login as Administrator</li>
+                  <li><Button onClick={() => this.handleSetUserRole('seniorop')}>Login as Senior Operator</Button> (full access)</li>
+                  <li><Button onClick={() => this.handleSetUserRole('juniorop')}>Login as Junior Operator</Button>  (restricted access)</li>
+                  <li><Button onClick={() => this.handleSetUserRole('admin')}>Login as Administrator</Button></li>
                 </ul>
             </div>
           </Col>
@@ -33,4 +45,4 @@ export class HomeView extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, {})(HomeView)
+export default connect(mapStateToProps, accountActions)(HomeView)

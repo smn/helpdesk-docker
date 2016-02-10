@@ -7,20 +7,25 @@ import { Grid, Row, Col, PageHeader, Button, Input, Alert } from 'react-bootstra
 const mapStateToProps = (state) => ({
   blocked: state.account.blocked,
   loggedIn: state.account.loggedIn,
-  forgottonstage: state.account.forgottonstage
+  forgottonstage: state.account.forgottonstage,
+  logged_in_role: state.account.logged_in_role
 })
 
 export class LoginForm extends Component {
     static propTypes = {
+      history: PropTypes.object.isRequired,
       blocked: PropTypes.bool.isRequired,
+      logged_in_role: PropTypes.string.isRequired,
       loggedIn: PropTypes.bool.isRequired,
       login: PropTypes.func.isRequired,
       logout: PropTypes.func.isRequired,
       faillogin: PropTypes.func.isRequired,
-      forgotton: PropTypes.func.isRequired
+      forgotton: PropTypes.func.isRequired,
+      children: PropTypes.object.isRequired
     };
 
     render () {
+      console.log(this.props)
       let blocked = this.props.blocked ? <Alert bsStyle='danger'><strong>Login Failed:</strong> Invalid username and/or PIN. Please try again.</Alert> : ''
       return (
         <Grid className='text-center'>
@@ -35,6 +40,7 @@ export class LoginForm extends Component {
                   <Button onClick={() => this.props.faillogin()}>Login (Fail)</Button>{ ' ' }
                   <Button onClick={() => this.props.forgotton(1)}>Forgot PIN?</Button>{ ' ' }
               </form>
+              {this.props.children}
             </Col>
           </Row>
         </Grid>

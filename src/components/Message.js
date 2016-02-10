@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { actions as messageActions } from '../redux/modules/messages'
 import { actions as caseActions } from '../redux/modules/cases'
+import { actions as accountActions } from '../redux/modules/account'
 import { FaqModal, AugmentedDataPod } from './'
 // import MessageReply from './'
 import { Table, Input, Button, Alert, Grid, Row, Col, Glyphicon, Tabs, Tab } from 'react-bootstrap'
@@ -13,13 +14,15 @@ const mapStateToProps = (state) => ({
   messages_archived: state.messages.messages_archived,
   messages_deleted: state.messages.messages_deleted,
   inboxstage: state.messages.inboxstage,
-  alert: state.messages.sent
+  alert: state.messages.sent,
+  logged_in_role: state.account.logged_in_role
 })
 
 export default class Message extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    logged_in_role: PropTypes.string.isRequired,
     messages: PropTypes.array.isRequired,
     addReply: PropTypes.func.isRequired,
     closeSuccess: PropTypes.func.isRequired,
@@ -104,8 +107,8 @@ export default class Message extends Component {
     setTimeout(() => this.props.closeSuccess(), 5000)
   }
 
-  render () {
-    const message = this.props.messages[this.messageId()]
+  createReplyForm () {
+    // console.log(this.state.logged_in_role)
     const replyBox = (
       <Input
         type='textarea'
@@ -116,13 +119,21 @@ export default class Message extends Component {
         onKeyDown={this.handleSubmit.bind(this)}
       />
     )
-    const replyForm = (
-      <div>
-        <FaqModal showModal={false} addReply={this.props.addReply} closeSuccess={this.props.closeSuccess} messageId={this.messageId()} />
-        { replyBox }
-      </div>
-    )
 
+    if (this.props.logged_in_role !== 'seniorop') {
+      return replyBox
+    } else {
+      return (<div>
+        <FaqModal showModal={false} addReply={this.props.addReply} closeSuccess={this.props.closeSuccess} messageId={this.messageId()} />
+
+        { replyBox }
+      </div>)
+    }
+  }
+
+  render () {
+    const message = this.props.messages[this.messageId()]
+    console.log(this.props)
     const newCaseForm = (
       <form>
         <Input type='text' label='Case subject' placeholder='Enter a short description/summary for the case. Press enter to create the case.'
@@ -194,7 +205,7 @@ export default class Message extends Component {
                       <Tabs defaultActiveKey={1}>
                         <Tab eventKey={1} title='Send a reply'>
                             <br />
-                            { replyForm }
+                            { this.createReplyForm() }
                         </Tab>
                         <Tab eventKey={2} title='Open a case'>
                           <br />
@@ -225,8 +236,8 @@ export default class Message extends Component {
   }
 }
 
-const messageAndCaseActions = Object.assign({}, messageActions, caseActions)
+const allActions = Object.assign({}, messageActions, caseActions, accountActions)
 
-export default connect(mapStateToProps, messageAndCaseActions)(Message)
+export default connect(mapStateToProps, allActions)(Message)
 
         // <ButtonInput bsStyle='primary' type='submit' value='Reply' onClick={this.handleReplyClick.bind(this)} />

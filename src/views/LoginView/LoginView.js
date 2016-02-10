@@ -16,7 +16,8 @@ const mapStateToProps = (state) => ({
 export class LoginView extends Component {
     static propTypes = {
       loggedIn: PropTypes.bool.isRequired,
-      forgottonstage: PropTypes.number.isRequired
+      forgottonstage: PropTypes.number.isRequired,
+      children: PropTypes.object.isRequired
     };
   render () {
     switch (this.props.forgottonstage) {
@@ -24,21 +25,29 @@ export class LoginView extends Component {
         return (
           <div className='container text-center'>
             <LoginForgottenForm />
+              {/* Render the child route component */}
+              {this.props.children}
           </div>)
       case 2:
         return (
           <div className='container text-center'>
             <LoginForgottenCodeForm />
+              {/* Render the child route component */}
+              {this.props.children}
           </div>)
       case 3:
         return (
           <div className='container text-center'>
             <LoginForgottenNewForm />
+              {/* Render the child route component */}
+              {this.props.children}
           </div>)
       default:
         return (
           <div className='container text-center'>
               <LoginForm />
+                {/* Render the child route component */}
+                {this.props.children}
           </div>
         )
     }
