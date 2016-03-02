@@ -6,7 +6,7 @@ RUN apk add --no-cache git
 RUN npm install
 RUN gulp bower
 
-EXPOSE 8000
+EXPOSE 8080
 
 ENTRYPOINT ["npm", "start"]
 
