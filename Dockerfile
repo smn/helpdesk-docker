@@ -4,7 +4,7 @@ COPY . /app
 WORKDIR /app
 RUN apk add --no-cache git
 RUN npm install
-RUN gulp bower
+RUN ./node_modules/.bin/gulp bower
 
 EXPOSE 8080
 
