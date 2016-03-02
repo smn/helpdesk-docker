@@ -1,3 +1,3 @@
-FROM FROM nginx
+FROM nginx
 
 COPY dist /usr/share/nginx/html
